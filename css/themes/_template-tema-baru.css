@@ -1,0 +1,37 @@
+/* =========================================================================
+   TEMPLATE TEMA BARU
+   Cara pakai:
+   1. Salin file ini menjadi  css/themes/<nama-tema>.css   (huruf kecil, tanpa spasi, contoh: "rustic")
+   2. Ganti semua  "NAMA-TEMA"  di bawah menjadi nama tema tersebut
+   3. Aktifkan di data.js  ->  tampilan: { tema: "rustic" }
+      atau preview tanpa edit:  index.html?tema=rustic
+   4. (Opsional) Tambahkan preset di js/theme-loader.js -> PRESET_TEMA jika tema butuh
+      urutan section / latar bawaan sendiri.
+
+   Tips:
+   - Mulai dari blok TOKEN. Banyak permintaan klien selesai hanya dengan mengganti warna & font.
+   - Untuk meniru desain kompetitor, buka css/themes/sinematik.css sebagai contoh lengkap
+     (setiap section sudah diberi nomor yang sama dengan main.html).
+   - Komponen .komponen-tema (monogram sampul, "Personalized for", ikon kalender acara)
+     tersembunyi secara bawaan. Munculkan dengan display:block/flex di tema Anda.
+========================================================================= */
+
+html[data-tema="NAMA-TEMA"] {
+    --t-aksen: #8A6D3B;
+    --t-teks: #333333;
+    --t-latar: #FAF7F2;
+
+    --t-font-judul: 'Playfair Display', serif;
+    --t-font-script: 'Great Vibes', cursive;
+    --t-font-teks: 'Poppins', sans-serif;
+
+    /* arahkan variabel tema klasik ke token di atas */
+    --warna-utama: var(--t-aksen);
+    --warna-teks-gelap: var(--t-teks);
+    --font-judul: var(--t-font-judul);
+    --font-latin: var(--t-font-script);
+    --font-paragraf: var(--t-font-teks);
+}
+
+/* Contoh: munculkan monogram di sampul depan */
+/* html[data-tema="NAMA-TEMA"] .splash-inisial { display: flex; justify-content: center; font-size: 120px; } */

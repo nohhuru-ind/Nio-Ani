@@ -1,0 +1,470 @@
+/* =========================================================================
+   DONAHU ANIMATION LIBRARY - FULL VARIATION
+   Kumpulan utility class untuk animasi instan.
+========================================================================= */
+
+/* Pastikan semua elemen yang punya animasi masuk tersembunyi di awal */
+[class*="anim-fade-"], [class*="anim-zoom-"], [class*="anim-slide-"] {
+    opacity: 0; 
+}
+
+/* =========================================================================
+   1. ENTRANCE: FADE IN (Muncul Perlahan sambil Bergeser)
+   Paling sering digunakan untuk teks, kartu, dan foto
+========================================================================= */
+
+/* Muncul dari Bawah ke Atas (Standar) */
+.anim-fade-up { animation: fadeUp 1s ease-out forwards; }
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Muncul dari Atas ke Bawah */
+.anim-fade-down { animation: fadeDown 1s ease-out forwards; }
+@keyframes fadeDown {
+    0% { opacity: 0; transform: translateY(-50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Muncul dari Kiri ke Kanan */
+.anim-fade-left { animation: fadeLeft 1s ease-out forwards; }
+@keyframes fadeLeft {
+    0% { opacity: 0; transform: translateX(-50px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Muncul dari Kanan ke Kiri */
+.anim-fade-right { animation: fadeRight 1s ease-out forwards; }
+@keyframes fadeRight {
+    0% { opacity: 0; transform: translateX(50px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Muncul Diam di Tempat (Hanya Transparansi) */
+.anim-fade-in { animation: fadeIn 1.2s ease-out forwards; }
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+
+/* =========================================================================
+   2. ENTRANCE: ZOOM (Membesar / Mengecil)
+   Sangat cocok untuk Avatar Mempelai atau Ikon Cincin
+========================================================================= */
+
+/* Membesar dari titik tengah */
+.anim-zoom-in { animation: zoomIn 1s ease-out forwards; }
+@keyframes zoomIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Mengecil dari ukuran besar (Efek Stempel) */
+.anim-zoom-out { animation: zoomOut 1s ease-out forwards; }
+@keyframes zoomOut {
+    0% { opacity: 0; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+
+/* =========================================================================
+   3. CONTINUOUS: FLOATING (Melayang Abadi)
+   Sangat cocok untuk Ornamen, Bunga, Daun, atau Panah Scroll
+   PENTING: Jangan taruh opacity: 0 di sini, karena ini efek abadi
+========================================================================= */
+
+/* Melayang Naik Turun (Vertikal) */
+.anim-float-y { animation: floatY 4s ease-in-out infinite; }
+@keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); } /* Naik 15px */
+}
+
+/* Melayang Kiri Kanan (Horizontal) - Cocok untuk awan/daun di tepi */
+.anim-float-x { animation: floatX 4s ease-in-out infinite; }
+@keyframes floatX {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(15px); } /* Geser kanan 15px */
+}
+
+/* Melayang Diagonal (Menyerong) */
+.anim-float-diagonal { animation: floatDiagonal 5s ease-in-out infinite; }
+@keyframes floatDiagonal {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(15px, -15px); } /* Serong kanan atas */
+}
+
+
+/* =========================================================================
+   4. CONTINUOUS: ATTRACTION (Menarik Perhatian)
+   Untuk tombol "Buka Undangan" atau "Kirim Kado"
+========================================================================= */
+
+/* Berdenyut Halus */
+.anim-pulse { animation: pulse 2s infinite; }
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Mengayun seperti Lampion / Jam Dinding */
+.anim-swing { 
+    animation: swing 3s ease-in-out infinite; 
+    transform-origin: top center; /* Poros ayunan di atas */
+}
+@keyframes swing {
+    0%, 100% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+}
+
+/* Berputar Abadi (Ikon Musik) */
+.anim-spin { animation: spin 4s linear infinite; }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* =========================================================================
+   5. MODIFIERS: PENGATUR WAKTU & JEDA (SANGAT PENTING)
+   Gunakan untuk membuat efek antrian (berurutan)
+========================================================================= */
+
+/* Kecepatan Eksekusi */
+.speed-very-fast { animation-duration: 0.5s !important; }
+.speed-fast      { animation-duration: 1.0s !important; }
+.speed-slow      { animation-duration: 1.8s !important; }
+.speed-very-slow { animation-duration: 3.0s !important; }
+
+/* Antrian Jeda (Delay) - Atur siapa yang muncul duluan */
+.delay-100 { animation-delay: 0.1s !important; }
+.delay-200 { animation-delay: 0.2s !important; }
+.delay-300 { animation-delay: 0.3s !important; }
+.delay-400 { animation-delay: 0.4s !important; }
+.delay-500 { animation-delay: 0.5s !important; }
+.delay-600 { animation-delay: 0.6s !important; }
+.delay-800 { animation-delay: 0.8s !important; }
+.delay-1000 { animation-delay: 1s !important; } /* Tunggu 1 detik baru muncul */
+
+/* Update baris paling atas di file Anda menjadi seperti ini: */
+[class*="anim-fade-"], [class*="anim-zoom-"], [class*="anim-slide-"], [class*="anim-float-in-"], [class*="anim-bounce-"], [class*="anim-flip-"] {
+    opacity: 0; 
+}
+
+/* =========================================================================
+   6. ENTRANCE: FLOAT IN (Melayang Masuk Ekstra Halus / Overshoot)
+   Sangat elegan! Bergerak lebih jauh dan melambat di akhir, 
+   terkadang sedikit melewati batas lalu kembali (overshoot).
+========================================================================= */
+
+/* Float In dari Bawah */
+.anim-float-in-up { animation: floatInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes floatInUp {
+    0% { opacity: 0; transform: translateY(80px); }
+    70% { opacity: 1; transform: translateY(-5px); } /* Sedikit kebablasan ke atas */
+    100% { opacity: 1; transform: translateY(0); } /* Duduk dengan manis */
+}
+
+/* Float In dari Atas */
+.anim-float-in-down { animation: floatInDown 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes floatInDown {
+    0% { opacity: 0; transform: translateY(-80px); }
+    70% { opacity: 1; transform: translateY(5px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Float In dari Kiri */
+.anim-float-in-left { animation: floatInLeft 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes floatInLeft {
+    0% { opacity: 0; transform: translateX(-80px); }
+    70% { opacity: 1; transform: translateX(5px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Float In dari Kanan */
+.anim-float-in-right { animation: floatInRight 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes floatInRight {
+    0% { opacity: 0; transform: translateX(80px); }
+    70% { opacity: 1; transform: translateX(-5px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+
+/* =========================================================================
+   7. ENTRANCE: BOUNCE IN (Masuk Memantul / Ceria)
+   Cocok untuk Tombol, Tanggal Acara, atau Ikon-ikon penting
+========================================================================= */
+
+/* Memantul dari Tengah (Kecil ke Besar) */
+.anim-bounce-in { animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+@keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.05); } /* Membesar lebih dari aslinya */
+    70% { transform: scale(0.9); } /* Mengecil sedikit */
+    100% { opacity: 1; transform: scale(1); } /* Normal */
+}
+
+/* Memantul dari Bawah */
+.anim-bounce-in-up { animation: bounceInUp 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+@keyframes bounceInUp {
+    0% { opacity: 0; transform: translateY(100px); }
+    60% { opacity: 1; transform: translateY(-15px); }
+    80% { transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================================================================
+   8. ENTRANCE: FLIP (Memutar 3D)
+   Sangat Mewah! Cocok untuk Kartu Acara (Akad/Resepsi)
+========================================================================= */
+
+/* Membalik Horizontal (Kiri ke Kanan) */
+.anim-flip-in-y { 
+    animation: flipInY 1.2s ease-out forwards; 
+    backface-visibility: visible !important; 
+}
+@keyframes flipInY {
+    0% { opacity: 0; transform: perspective(400px) rotateY(90deg); }
+    40% { transform: perspective(400px) rotateY(-10deg); }
+    70% { transform: perspective(400px) rotateY(10deg); }
+    100% { opacity: 1; transform: perspective(400px) rotateY(0deg); }
+}
+
+/* Membalik Vertikal (Atas ke Bawah) */
+.anim-flip-in-x { 
+    animation: flipInX 1.2s ease-out forwards; 
+    backface-visibility: visible !important; 
+}
+@keyframes flipInX {
+    0% { opacity: 0; transform: perspective(400px) rotateX(90deg); }
+    40% { transform: perspective(400px) rotateX(-10deg); }
+    70% { transform: perspective(400px) rotateX(10deg); }
+    100% { opacity: 1; transform: perspective(400px) rotateX(0deg); }
+}
+
+
+/* =========================================================================
+   9. ENTRANCE: SLIDE (Meluncur Tanpa Fade)
+   Masuk murni bergeser layaknya ditarik, tidak ada efek blur/opacity
+========================================================================= */
+
+.anim-slide-in-up { animation: slideInUp 0.8s ease-out forwards; opacity: 1 !important; transform: translateY(100%); }
+@keyframes slideInUp {
+    to { transform: translateY(0); }
+}
+
+.anim-slide-in-left { animation: slideInLeft 0.8s ease-out forwards; opacity: 1 !important; transform: translateX(-100%); }
+@keyframes slideInLeft {
+    to { transform: translateX(0); }
+}
+
+/* =========================================================================
+   SISTEM ANIMATE ON SCROLL (AOS)
+   Menahan animasi agar tidak jalan sebelum masuk layar
+========================================================================= */
+
+/* Jika ada class 'on-scroll' tapi BELUM ada class 'is-visible', matikan animasinya */
+.on-scroll:not(.is-visible) {
+    animation: none !important; 
+    opacity: 0 !important; /* Sembunyikan elemen */
+}
+
+/* Saat class 'is-visible' ditambahkan oleh JS, animasi akan otomatis berjalan 
+   sesuai dengan delay dan durasi yang Anda pasang sebelumnya */
+
+/* --- LIBRARY ANIMASI REVEAL (MUNCUL DARI DALAM) --- */
+
+/* Wrapper wajib digunakan sebagai bingkai */
+.reveal-wrapper {
+    overflow: hidden;
+    display: inline-block;
+}
+
+/* 1. Reveal dari Bawah (Slide ke atas dari dalam frame) */
+.anim-reveal-up {
+    animation: revealUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes revealUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* 2. Reveal dari Atas (Slide ke bawah dari dalam frame) */
+.anim-reveal-down {
+    animation: revealDown 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes revealDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* 3. Reveal dari Kiri (Slide ke kanan dari dalam frame) */
+.anim-reveal-right {
+    animation: revealRight 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes revealRight {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Objek muncul dari pusatnya sendiri, tidak dari arah manapun */
+.anim-grow-reveal {
+    animation: growReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: center;
+}
+
+@keyframes growReveal {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideUpFade {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100%); opacity: 0; }
+}
+
+.splash-fade-out {
+    animation: slideUpFade 1s ease-in-out forwards;
+    pointer-events: none; /* Agar tombol tidak bisa diklik dua kali saat animasi */
+}
+
+/* =========================================================================
+   EFEK TEMA (dipasang oleh js/efek.js sesuai peta efek tema aktif)
+   Ubah durasi/jarak di variabel ini:
+========================================================================= */
+:root {
+    --fx-durasi: 1.5s;          /* lama gerakan */
+    --fx-durasi-pudar: 0.6s;    /* lama memudar masuk */
+    --fx-jarak: 6rem;           /* jarak naik dari bawah */
+    --fx-skala: 0.93;           /* ukuran awal saat muncul */
+    --fx-kurva: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fx {
+    opacity: 0;
+    transition:
+        opacity var(--fx-durasi-pudar) ease var(--fx-jeda, 0ms),
+        transform var(--fx-durasi) var(--fx-kurva) var(--fx-jeda, 0ms);
+    will-change: opacity, transform;
+}
+.fx.fx-aktif { opacity: 1; transform: none; }
+
+.fx-muncul       { transform: translateY(var(--fx-jarak)) scale(var(--fx-skala)); }
+.fx-muncul-atas  { transform: translateY(calc(var(--fx-jarak) * -1.3)) scale(var(--fx-skala)); --fx-jeda: 500ms; }
+.fx-muncul-kiri  { transform: translateX(-60%) scale(var(--fx-skala)); }
+.fx-muncul-kanan { transform: translateX(60%) scale(var(--fx-skala)); }
+.fx-zoom         { transform: scale(0.5); }
+.fx-pudar        { transform: none; }
+
+/* galeri: tiap foto membesar dari atas-tengah sambil memudar, berurutan */
+.fx-galeri {
+    transform: scale(0.5);
+    transform-origin: center top;
+    transition:
+        opacity 0.8s ease var(--fx-jeda, 0ms),
+        transform 0.8s var(--fx-kurva) var(--fx-jeda, 0ms);
+}
+
+/* hover galeri: foto sedikit membesar di dalam bingkainya */
+.fx-galeri.fx-aktif img { transition: transform 0.8s var(--fx-kurva), filter 0.8s; }
+.fx-galeri.fx-aktif:hover img { transform: scale(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+    .fx { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+
+/* =========================================================================
+   TRANSISI BUKA UNDANGAN (pilih di data.js -> tampilan.transisiBuka)
+   Warna bisa diatur per tema lewat --transisi-cahaya & --transisi-tirai
+========================================================================= */
+:root {
+    --transisi-cahaya: #fffdfa;                                   /* warna sinar */
+    --transisi-tirai: var(--t-aksen, var(--warna-utama, #8E0F24)); /* warna panel tirai */
+}
+
+/* ---------- CAHAYA ---------- */
+/* Sampul: sinar mekar dari tombol, isi sampul sedikit membesar & melembut */
+html.keluar-cahaya .splash-gateway-container {
+    animation: cahayaIsiKeluar 1.15s cubic-bezier(.4, 0, .2, 1) forwards;
+}
+@keyframes cahayaIsiKeluar {
+    to { transform: scale(1.05); filter: blur(4px) brightness(1.25); }
+}
+html.keluar-cahaya::after {
+    content: "";
+    position: fixed;
+    left: 50%;
+    top: 78%;
+    width: 260vmax;
+    height: 260vmax;
+    margin: -130vmax 0 0 -130vmax;
+    border-radius: 50%;
+    z-index: 100000;
+    pointer-events: none;
+    background: radial-gradient(circle, var(--transisi-cahaya) 0%, var(--transisi-cahaya) 38%, rgba(255,253,250,0) 62%);
+    transform: scale(0);
+    opacity: .2;
+    animation: cahayaMekar 1.15s cubic-bezier(.55, 0, .25, 1) forwards;
+}
+@keyframes cahayaMekar {
+    40% { opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Halaman dalam: mulai dari cahaya, lalu memudar menampakkan undangan */
+html.masuk-cahaya::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    pointer-events: none;
+    background: var(--transisi-cahaya);
+    animation: cahayaMasuk 1.6s cubic-bezier(.4, 0, .2, 1) .1s forwards;
+}
+@keyframes cahayaMasuk { to { opacity: 0; } }
+html.masuk-cahaya #global-layer-1 {
+    animation: latarMendekat 2.4s cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes latarMendekat {
+    from { transform: scale(1.12); filter: brightness(1.3); }
+    to   { transform: scale(1);    filter: none; }
+}
+
+/* ---------- TIRAI ---------- */
+html.keluar-tirai::before,
+html.keluar-tirai::after,
+html.masuk-tirai::before,
+html.masuk-tirai::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 50.5%;
+    z-index: 100000;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,.18), rgba(255,255,255,.06) 30%, rgba(0,0,0,.12) 55%, rgba(255,255,255,.05) 80%, rgba(0,0,0,.2)),
+        var(--transisi-tirai);
+    background-size: 64px 100%, auto;
+}
+html.keluar-tirai::before, html.masuk-tirai::before { left: 0; }
+html.keluar-tirai::after,  html.masuk-tirai::after  { right: 0; }
+
+html.keluar-tirai::before { animation: tiraiTutupKiri .95s cubic-bezier(.7, 0, .3, 1) forwards; }
+html.keluar-tirai::after  { animation: tiraiTutupKanan .95s cubic-bezier(.7, 0, .3, 1) forwards; }
+@keyframes tiraiTutupKiri  { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes tiraiTutupKanan { from { transform: translateX(100%); }  to { transform: none; } }
+
+html.masuk-tirai::before { animation: tiraiBukaKiri 1.3s cubic-bezier(.7, 0, .3, 1) .25s forwards; }
+html.masuk-tirai::after  { animation: tiraiBukaKanan 1.3s cubic-bezier(.7, 0, .3, 1) .25s forwards; }
+@keyframes tiraiBukaKiri  { to { transform: translateX(-100%); } }
+@keyframes tiraiBukaKanan { to { transform: translateX(100%); } }
+
+@media (prefers-reduced-motion: reduce) {
+    html[class*="keluar-"]::before, html[class*="keluar-"]::after,
+    html[class*="masuk-"]::before,  html[class*="masuk-"]::after { animation-duration: .01s !important; }
+}

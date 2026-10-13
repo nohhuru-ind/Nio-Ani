@@ -1,0 +1,929 @@
+/* =========================================================================
+   TEMA: SINEMATIK
+   Gaya: foto penuh layar yang gelap & berganti, kartu kaca bergaris tipis,
+         kartu acara berbentuk kubah, foto polaroid, aksen emas.
+   Aktif bila data.js -> tampilan.tema = "sinematik"  (atau ?tema=sinematik di URL)
+
+   Semua aturan diawali  html[data-tema="sinematik"]  sehingga:
+   - tidak pernah bocor ke tema lain
+   - selalu menang melawan theme.css tanpa perlu !important
+
+   UBAH WARNA / FONT CUKUP DI BLOK TOKEN DI BAWAH (atau via data.js -> tampilan.warna / tampilan.font)
+========================================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ---------------------------------------------------------------- TOKEN */
+html[data-tema="sinematik"] {
+    --t-aksen: #FFD867;                       /* emas: nama, judul acara */
+    --t-aksen-tombol: #B08D57;                /* tombol hadiah */
+    --t-latar: #0d0d0b;                       /* warna dasar jika foto belum termuat */
+    --t-overlay: rgba(0, 0, 0, 0.58);         /* gelapnya foto latar */
+    --t-teks: #ffffff;
+    --t-teks-redup: rgba(255, 255, 255, 0.82);
+    --t-garis: rgba(255, 255, 255, 0.55);
+    --t-kaca: rgba(0, 0, 0, 0.28);
+    --t-blur: 5px;
+
+    --t-font-display: 'Bodoni Moda', 'Playfair Display', serif;   /* nama besar & monogram */
+    --t-font-judul: 'Cormorant Garamond', 'Playfair Display', serif; /* judul section */
+    --t-font-script: 'Allura', 'Great Vibes', cursive;            /* tulisan latin */
+    --t-font-teks: 'Poppins', sans-serif;                         /* paragraf */
+
+    --t-nav-latar: rgba(15, 15, 15, 0.72);
+    --t-nav-teks: #ffffff;
+    --t-nav-aktif: rgba(255, 255, 255, 0.16);
+
+    /* Variabel tema klasik ikut diarahkan, supaya elemen yang belum di-style tetap serasi */
+    --warna-utama: var(--t-aksen);
+    --warna-teks-gelap: var(--t-teks);
+    --warna-teks-terang: var(--t-teks);
+    --font-judul: var(--t-font-judul);
+    --font-latin: var(--t-font-script);
+    --font-paragraf: var(--t-font-teks);
+}
+
+html[data-tema="sinematik"] body { background-color: var(--t-latar); color: var(--t-teks); }
+
+/* Kelas bantu yang dipakai berulang */
+html[data-tema="sinematik"] .judul-script {
+    font-family: var(--t-font-script);
+    font-weight: 400;
+    font-style: normal;
+    text-transform: none;
+}
+
+/* =========================================================================
+   1. SAMPUL DEPAN (index.html)
+========================================================================= */
+html[data-tema="sinematik"] .splash-gateway-container { background-color: var(--t-latar); }
+
+html[data-tema="sinematik"] .splash-overlay-shading {
+    background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.15) 100%);
+}
+
+html[data-tema="sinematik"] .splash-content-wrapper {
+    justify-content: flex-end;
+    margin-bottom: 0;
+    padding-bottom: 18vh;
+}
+
+html[data-tema="sinematik"] .splash-inisial {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-family: var(--t-font-display);
+    color: var(--t-teks);
+    font-size: clamp(120px, 42vw, 190px);
+    line-height: .8;
+    letter-spacing: -0.06em;
+    margin-bottom: 7vh;
+    text-shadow: 0 4px 30px rgba(0,0,0,.35);
+}
+html[data-tema="sinematik"] .splash-inisial span:last-child { margin-left: -0.08em; }
+
+/* Di sampul cukup monogram, nama lengkap tampil di dalam */
+html[data-tema="sinematik"] .splash-label-atas,
+html[data-tema="sinematik"] .splash-title-mempelai { display: none; }
+
+html[data-tema="sinematik"] .text-kepada {
+    font-family: var(--t-font-teks);
+    font-size: 12px;
+    letter-spacing: .5px;
+    line-height: 1.4;
+    max-width: 200px;
+    margin: 0 auto 8px;
+}
+html[data-tema="sinematik"] .text-nama-tamu {
+    font-family: var(--t-font-teks);
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+html[data-tema="sinematik"] .btn-buka-undangan {
+    background: transparent;
+    color: var(--t-teks);
+    border: 1px solid var(--t-teks);
+    border-radius: 0;
+    font-family: var(--t-font-teks);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 10px 24px;
+}
+html[data-tema="sinematik"] .btn-buka-undangan:hover { background: rgba(255,255,255,.12); }
+
+html[data-tema="sinematik"] .envelope-animation { background: var(--t-latar); }
+html[data-tema="sinematik"] .envelope-flap { background: var(--t-aksen); }
+
+/* =========================================================================
+   2. LATAR GLOBAL + RESET LAYER PER SECTION
+========================================================================= */
+html[data-tema="sinematik"] #global-layer-1 { background-color: var(--t-latar); }
+html[data-tema="sinematik"] #global-layer-1::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--t-overlay);
+}
+html[data-tema="sinematik"] .donahu-global-slide { inset: 0; transform: scale(1.04); transition: opacity 1.8s ease, transform 8s linear; }
+html[data-tema="sinematik"] .donahu-global-slide.active-slide { transform: scale(1); }
+
+/* Tema ini memakai satu latar foto untuk semua section: layer per-section dimatikan */
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-2-texture,
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-3-static,
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-3-bg-putih,
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-4-overlay,
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-5-frame,
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-10-ornamen { display: none; }
+
+html[data-tema="sinematik"] #donahu-scroll-wrapper .donahu-section-layer,
+html[data-tema="sinematik"] #donahu-scroll-wrapper .donahu-section-layerPenutup {
+    min-height: auto;
+    background: transparent;
+}
+html[data-tema="sinematik"] #donahu-scroll-wrapper .layer-6-content {
+    min-height: auto;
+    padding: 56px 22px;
+}
+
+/* Kartu kaca: dipakai mempelai, love story, turut mengundang, ucapan */
+html[data-tema="sinematik"] #section-mempelai .mempelai-container-shadow,
+html[data-tema="sinematik"] #story-timeline-wrapper,
+html[data-tema="sinematik"] #section-turut-mengundang .turut-container-shadow,
+html[data-tema="sinematik"] #section-rsvp .comments-display-wrapper {
+    background: var(--t-kaca);
+    border: 1px solid var(--t-garis);
+    border-radius: 6px;
+    box-shadow: none;
+    backdrop-filter: blur(var(--t-blur));
+    -webkit-backdrop-filter: blur(var(--t-blur));
+}
+
+/* Judul section seragam (ID disebut agar menang melawan aturan per-section di theme.css) */
+html[data-tema="sinematik"] .title-section-global,
+html[data-tema="sinematik"] #section-galeri .title-section-global,
+html[data-tema="sinematik"] #section-gift .title-section-global,
+html[data-tema="sinematik"] #section-rsvp .title-section-global,
+html[data-tema="sinematik"] #section-live .title-section-global {
+    font-family: var(--t-font-judul);
+    font-weight: 300;
+    color: var(--t-teks);
+    font-size: 40px;
+    line-height: 1.1;
+    margin-bottom: 14px;
+}
+html[data-tema="sinematik"] .title-section-global > i { display: none; }
+
+/* =========================================================================
+   3. HERO
+========================================================================= */
+html[data-tema="sinematik"] #section-hero { min-height: 100vh; min-height: 100svh; }
+html[data-tema="sinematik"] #section-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    /* gelap di area teks, lalu memudar lagi di tepi bawah agar menyatu dengan section berikutnya */
+    background: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 14%, rgba(0,0,0,.35) 35%, rgba(0,0,0,0) 62%);
+    pointer-events: none;
+}
+html[data-tema="sinematik"] #section-hero .layer-6-content {
+    min-height: 100vh;
+    min-height: 100svh;
+    justify-content: flex-end;
+    padding: 0 22px 13vh;
+}
+html[data-tema="sinematik"] #section-hero .hero-photo-wrapper,
+html[data-tema="sinematik"] #section-hero .spacer { display: none; }
+
+html[data-tema="sinematik"] .hero-personal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    right: 22px;
+    font-family: var(--t-font-teks);
+    font-size: 12px;
+    color: var(--t-teks);
+    text-align: left;
+}
+html[data-tema="sinematik"] .hero-personal #hero-nama-tamu { text-align: right; max-width: 55%; }
+
+html[data-tema="sinematik"] #section-hero .sub-title {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks);
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 7px;
+    margin-bottom: 4px;
+}
+html[data-tema="sinematik"] #section-hero h1 {
+    font-family: var(--t-font-display);
+    color: var(--t-aksen);
+    font-weight: 400;
+    font-size: clamp(42px, 13vw, 64px);
+    line-height: .95;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin: 6px 0 14px;
+}
+html[data-tema="sinematik"] #section-hero h1 span { display: inline; }
+html[data-tema="sinematik"] #section-hero .Tanggal-acara {
+    font-family: var(--t-font-judul);
+    font-weight: 500;
+    color: var(--t-teks);
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 0;
+    padding: 0;
+}
+html[data-tema="sinematik"] .scroll-indicator { color: var(--t-teks); margin-top: 26px; }
+
+/* =========================================================================
+   4. QUOTE + HITUNG MUNDUR + FOTO BERJALAN
+   Urutan visual diatur dengan "order" tanpa mengubah HTML
+========================================================================= */
+html[data-tema="sinematik"] #section-quote .layer-6-content { padding: 40px 0 30px; }
+html[data-tema="sinematik"] #section-quote .quote-photo-wrapper,
+html[data-tema="sinematik"] #section-quote .inisial-wrapper { display: none; }
+
+html[data-tema="sinematik"] #section-quote .countdown-box-wrapper { order: 1; margin: 0 0 34px; gap: 22px; }
+html[data-tema="sinematik"] #section-quote .quote-card-box { order: 2; padding: 0 22px; }
+html[data-tema="sinematik"] #section-quote .marquee-container { order: 3; margin-top: 36px; left: 0; width: 100%; }
+
+html[data-tema="sinematik"] #section-quote .timer-block { padding: 0; min-width: 52px; }
+html[data-tema="sinematik"] #section-quote .timer-block span {
+    font-family: var(--t-font-teks);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--t-teks);
+    line-height: 1;
+}
+html[data-tema="sinematik"] #section-quote .timer-block p {
+    font-family: var(--t-font-teks);
+    font-style: normal;
+    font-size: 11px;
+    color: var(--t-teks);
+    margin: 4px 0 0;
+    line-height: 1;
+}
+html[data-tema="sinematik"] #section-quote .quote-icon { display: none; }
+html[data-tema="sinematik"] #section-quote #text-quote-ayat {
+    font-family: var(--t-font-teks);
+    font-style: normal;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--t-teks);
+    margin-bottom: 14px;
+}
+html[data-tema="sinematik"] #section-quote #sumber-quote-ayat {
+    font-family: var(--t-font-teks);
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--t-teks);
+}
+html[data-tema="sinematik"] .marquee-track img {
+    width: 118px;
+    height: 84px;
+    border-radius: 0;
+    margin-right: 6px;
+    object-position: center 30%;
+}
+
+/* =========================================================================
+   5. MEMPELAI
+========================================================================= */
+html[data-tema="sinematik"] #section-mempelai .layer-6-content { padding: 30px 22px 50px; }
+html[data-tema="sinematik"] #section-mempelai .mempelai-container-shadow {
+    width: 100%;
+    padding: 46px 20px 50px;
+}
+html[data-tema="sinematik"] #section-mempelai .pembuka-salam {
+    font-family: var(--t-font-script);
+    color: var(--t-teks);
+    font-size: 44px;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+html[data-tema="sinematik"] #section-mempelai .pembuka-teks {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+}
+html[data-tema="sinematik"] #section-mempelai .avatar-wrapper img {
+    width: 210px;
+    height: 292px;
+    border-radius: 0;
+    padding: 8px 8px 26px;
+    background: #fff;
+    object-fit: cover;
+    box-shadow: 0 12px 30px rgba(0,0,0,.45);
+}
+html[data-tema="sinematik"] .mempelai-panggilan {
+    font-family: var(--t-font-script);
+    color: var(--t-teks);
+    font-size: 44px;
+    line-height: 1;
+    margin: 20px 0 -4px;
+}
+html[data-tema="sinematik"] #section-mempelai h2 {
+    font-family: var(--t-font-judul);
+    color: var(--t-aksen);
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 1.15;
+    margin: 12px 0 8px;
+}
+html[data-tema="sinematik"] .mempelai-asal {
+    font-family: var(--t-font-teks);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--t-teks);
+    margin-bottom: 4px;
+}
+html[data-tema="sinematik"] #section-mempelai .ortu-info {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks-redup);
+    font-size: 12px;
+    line-height: 1.6;
+}
+html[data-tema="sinematik"] #section-mempelai .wedding-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-family: var(--t-font-judul);
+    color: var(--t-teks);
+    font-size: 40px;
+    margin: 34px 0 30px;
+}
+html[data-tema="sinematik"] #section-mempelai .wedding-separator::before,
+html[data-tema="sinematik"] #section-mempelai .wedding-separator::after {
+    content: "";
+    width: 70px;
+    height: 1px;
+    background: var(--t-teks);
+}
+html[data-tema="sinematik"] .btn-insta {
+    background: transparent;
+    border: 1px solid var(--t-garis);
+    font-family: var(--t-font-teks);
+    font-size: 12px;
+    padding: 6px 14px;
+    margin-top: 14px;
+}
+html[data-tema="sinematik"] .btn-insta i { color: var(--t-teks) !important; font-size: 14px; }
+
+/* =========================================================================
+   6. ACARA (kartu kubah)
+========================================================================= */
+html[data-tema="sinematik"] #section-acara .layer-6-content { padding: 60px 22px 30px; }
+html[data-tema="sinematik"] #section-acara .event-card-info { padding: 0; max-width: 340px; }
+
+/* Judul "Wedding Event" */
+html[data-tema="sinematik"] #section-acara .event-tittle {
+    font-family: var(--t-font-judul);
+    color: var(--t-teks);
+    font-weight: 300;
+    font-size: 50px;
+    line-height: .9;
+    text-align: left;
+    position: relative;
+    margin: 0 0 34px;
+}
+html[data-tema="sinematik"] #section-acara .event-tittle .judul-script {
+    display: block;
+    font-size: 40px;
+    padding-left: 6px;
+}
+html[data-tema="sinematik"] #section-acara .event-tittle::after {
+    content: "";
+    position: absolute;
+    left: 172px;
+    right: -20px;
+    top: 26px;
+    height: 1px;
+    background: var(--t-teks);
+}
+
+/* Kartu acara berbentuk kubah */
+html[data-tema="sinematik"] #acara-list .event-card-info {
+    width: 100%;
+    border: 2px solid var(--t-garis);
+    border-radius: 250px 250px 10px 10px;
+    background: var(--t-kaca);
+    backdrop-filter: blur(var(--t-blur));
+    -webkit-backdrop-filter: blur(var(--t-blur));
+    padding: 84px 22px 34px;
+    margin: 0 auto 26px;
+}
+html[data-tema="sinematik"] #acara-list .event-card-info h3 {
+    font-family: var(--t-font-judul);
+    color: var(--t-aksen);
+    font-weight: 400;
+    font-size: 46px;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+html[data-tema="sinematik"] #acara-list .event-card-info h3 i { display: none; }
+
+html[data-tema="sinematik"] #acara-list .ev-ikon {
+    display: block;
+    font-size: 22px;
+    margin: 0 auto 14px;
+    color: var(--t-teks);
+}
+html[data-tema="sinematik"] #acara-list .event-time,
+html[data-tema="sinematik"] #acara-list .event-place {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks);
+}
+html[data-tema="sinematik"] #acara-list .ev-tanggal {
+    font-size: 19px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+html[data-tema="sinematik"] #acara-list .ev-jam { font-size: 14px; letter-spacing: 2px; }
+html[data-tema="sinematik"] #acara-list .ev-jam::before {
+    content: "\f017";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+    margin-right: 6px;
+    letter-spacing: 0;
+}
+html[data-tema="sinematik"] #acara-list .ev-sep { display: none; }
+
+/* ikon peta diganti pin lokasi */
+html[data-tema="sinematik"] #acara-list i.fa-map-location-dot { font-size: 26px; margin: 18px auto 12px; }
+html[data-tema="sinematik"] #acara-list i.fa-map-location-dot::before { content: "\f3c5"; }
+
+html[data-tema="sinematik"] #acara-list .event-place { font-size: 14px; line-height: 1.5; }
+html[data-tema="sinematik"] #acara-list .ev-lokasi { font-weight: 600; }
+
+html[data-tema="sinematik"] #acara-list .btn-action-link {
+    background: #fff;
+    color: #555;
+    border: 0;
+    font-family: var(--t-font-teks);
+    font-size: 14px;
+    padding: 8px 22px;
+    margin-top: 22px;
+}
+html[data-tema="sinematik"] #acara-list .btn-action-link::before {
+    content: "\f3c5";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 7px;
+}
+
+/* =========================================================================
+   6b. LIVE STREAMING
+========================================================================= */
+html[data-tema="sinematik"] #section-live .layer-6-content {
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.45) 25%, rgba(0,0,0,.45) 75%, rgba(0,0,0,0) 100%);
+    padding: 70px 30px;
+}
+html[data-tema="sinematik"] #section-live .title-section-global {
+    font-family: var(--t-font-teks);
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 18px;
+}
+html[data-tema="sinematik"] #section-live .title-section-global > i { display: inline-block; font-size: 14px; margin-right: 4px; }
+html[data-tema="sinematik"] #section-live .live-teks { font-family: var(--t-font-teks); color: var(--t-teks-redup); font-size: 12px; line-height: 1.7; }
+html[data-tema="sinematik"] #section-live .btn-live { background: #fff; color: #555; border: 0; font-family: var(--t-font-teks); padding: 8px 22px; }
+
+/* =========================================================================
+   7. GALERI
+========================================================================= */
+html[data-tema="sinematik"] #section-galeri .layer-6-content { padding: 50px 16px; }
+html[data-tema="sinematik"] #section-galeri .title-section-global {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    justify-content: flex-end;
+    font-style: italic;
+    font-size: 42px;
+}
+html[data-tema="sinematik"] #section-galeri .title-section-global::before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--t-teks);
+    order: -1;
+}
+html[data-tema="sinematik"] #section-galeri .title-section-global .judul-script { font-size: 44px; margin-left: -6px; }
+html[data-tema="sinematik"] #section-galeri .subtitle-galeri {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks-redup);
+    font-size: 12px;
+    text-align: right;
+    align-self: flex-end;
+    margin-bottom: 20px;
+}
+
+/* Pola mosaik 3 kolom: [lebar penuh] [1|2] [2|1] lalu berulang */
+html[data-tema="sinematik"] .gallery-photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 150px;
+    gap: 6px;
+    padding: 0;
+}
+/* #gallery-grid-wrapper disebut agar menang dari pola mosaik tema klasik */
+html[data-tema="sinematik"] #gallery-grid-wrapper .gallery-item {
+    grid-row: span 1;
+    grid-column: span 1;
+    box-shadow: none;
+}
+html[data-tema="sinematik"] #gallery-grid-wrapper .gallery-item:nth-child(5n+1),
+html[data-tema="sinematik"] #gallery-grid-wrapper .gallery-item.landscape { grid-column: span 3; }
+html[data-tema="sinematik"] #gallery-grid-wrapper .gallery-item:nth-child(5n+3),
+html[data-tema="sinematik"] #gallery-grid-wrapper .gallery-item:nth-child(5n+4) { grid-column: span 2; }
+/* foto terakhir yang sendirian di barisnya dibuat melebar */
+html[data-tema="sinematik"] #gallery-grid-wrapper .gallery-item:nth-child(5n+2):last-child { grid-column: span 3; }
+
+/* =========================================================================
+   8. LOVE STORY
+========================================================================= */
+html[data-tema="sinematik"] #section-love-story .layer-6-content { padding: 50px 22px; }
+html[data-tema="sinematik"] #section-love-story .title-section-global {
+    font-family: var(--t-font-judul);
+    color: var(--t-aksen);
+    font-weight: 400;
+    font-size: 46px;
+    margin-bottom: 0;
+}
+html[data-tema="sinematik"] #section-love-story .title-section-global .judul-script {
+    display: block;
+    color: var(--t-teks);
+    font-size: 40px;
+    margin-top: -10px;
+}
+html[data-tema="sinematik"] #story-timeline-wrapper {
+    margin-top: 24px;
+    padding: 34px 22px 40px;
+    gap: 0;
+}
+html[data-tema="sinematik"] .story-simple-item { padding-top: 0; }
+html[data-tema="sinematik"] .story-simple-item + .story-simple-item { margin-top: 40px; }
+html[data-tema="sinematik"] .story-simple-img {
+    max-width: 260px;
+    height: 200px;
+    padding: 7px 7px 22px;
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(0,0,0,.45);
+    margin-bottom: 0;
+}
+/* garis vertikal penghubung timeline */
+html[data-tema="sinematik"] .story-simple-date {
+    position: relative;
+    font-family: var(--t-font-teks);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--t-teks);
+    padding-top: 56px;
+    margin-bottom: 4px;
+}
+html[data-tema="sinematik"] .story-simple-date::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 1px;
+    height: 38px;
+    background: var(--t-teks);
+}
+html[data-tema="sinematik"] .story-simple-title {
+    font-family: var(--t-font-judul);
+    color: var(--t-aksen);
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+html[data-tema="sinematik"] .story-divider { display: none; }
+html[data-tema="sinematik"] .story-simple-desc {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 100%;
+}
+
+/* =========================================================================
+   9. RSVP & UCAPAN
+========================================================================= */
+html[data-tema="sinematik"] #section-rsvp .layer-6-content { padding: 56px 22px; }
+html[data-tema="sinematik"] #section-rsvp .rsvp-subtitle {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks);
+    font-size: 13px;
+    letter-spacing: .5px;
+    line-height: 1.5;
+    text-align: center;
+}
+html[data-tema="sinematik"] #section-rsvp .rsvp-form-box {
+    max-width: 380px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+}
+html[data-tema="sinematik"] #section-rsvp .form-group-input label {
+    font-family: var(--t-font-teks);
+    font-weight: 400;
+    color: var(--t-teks);
+}
+html[data-tema="sinematik"] #section-rsvp .form-group-input input,
+html[data-tema="sinematik"] #section-rsvp .form-group-input select,
+html[data-tema="sinematik"] #section-rsvp .form-group-input textarea {
+    font-family: var(--t-font-teks);
+    border: 0;
+    border-radius: 3px;
+    background: #fff;
+    color: #333;
+    padding: 12px;
+}
+html[data-tema="sinematik"] #section-rsvp .form-group-input input:read-only {
+    background-color: rgba(255,255,255,.88) !important;
+    border: 0 !important;
+    color: #555 !important;
+}
+html[data-tema="sinematik"] #section-rsvp #btn-tambah-personal { color: var(--t-aksen) !important; }
+html[data-tema="sinematik"] #section-rsvp .btn-send-rsvp {
+    background: #2b2b2b;
+    font-family: var(--t-font-teks);
+    font-weight: 500;
+    border-radius: 3px;
+}
+html[data-tema="sinematik"] #section-rsvp .btn-send-rsvp:hover { background: #3a3a3a; }
+
+html[data-tema="sinematik"] #section-rsvp .comments-display-wrapper {
+    max-width: 380px;
+    padding: 26px 22px;
+    margin-top: 40px;
+}
+html[data-tema="sinematik"] #section-rsvp .comments-display-wrapper h4 {
+    font-family: var(--t-font-teks);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--t-teks);
+    border-bottom: 2px solid var(--t-teks);
+}
+html[data-tema="sinematik"] #section-rsvp .comments-display-wrapper h4 i { display: none; }
+html[data-tema="sinematik"] #section-rsvp .comment-card-item {
+    background: transparent;
+    border-left: 0;
+    border-bottom: 1px solid rgba(255,255,255,.18);
+    border-radius: 0;
+    padding: 12px 0;
+}
+html[data-tema="sinematik"] #section-rsvp .comment-name { color: var(--t-teks); font-family: var(--t-font-teks); }
+html[data-tema="sinematik"] #section-rsvp .comment-text { color: var(--t-teks-redup); font-family: var(--t-font-teks); }
+html[data-tema="sinematik"] #section-rsvp .comments-scroller-box p { color: var(--t-teks-redup); }
+
+/* =========================================================================
+   10. HADIAH
+========================================================================= */
+html[data-tema="sinematik"] #section-gift .layer-6-content { padding: 56px 22px; }
+html[data-tema="sinematik"] #section-gift .title-section-global { font-weight: 300; }
+html[data-tema="sinematik"] #section-gift .gift-caption {
+    font-family: var(--t-font-teks);
+    color: var(--t-teks);
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+html[data-tema="sinematik"] .btn-kirim-gift {
+    background: var(--t-aksen-tombol);
+    font-family: var(--t-font-teks);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 10px 22px;
+    border-radius: 2px;
+}
+html[data-tema="sinematik"] #section-gift .card-rekening-item {
+    background: var(--t-kaca);
+    border: 1px solid var(--t-garis);
+    border-radius: 6px;
+    backdrop-filter: blur(var(--t-blur));
+    -webkit-backdrop-filter: blur(var(--t-blur));
+    box-shadow: none;
+}
+html[data-tema="sinematik"] #section-gift .bank-name { color: var(--t-aksen); font-family: var(--t-font-judul); font-size: 22px; }
+html[data-tema="sinematik"] #section-gift .bank-holder { color: var(--t-teks-redup); }
+html[data-tema="sinematik"] #section-gift .btn-copy-data { background: var(--t-aksen-tombol); border-radius: 2px; }
+html[data-tema="sinematik"] #section-gift .kado-physical-box { border: 1px dashed var(--t-garis); background: var(--t-kaca); }
+html[data-tema="sinematik"] #section-gift .kado-physical-box h4 { color: var(--t-aksen); }
+html[data-tema="sinematik"] #section-gift .kado-physical-box p { color: var(--t-teks-redup); }
+
+/* =========================================================================
+   11. TURUT MENGUNDANG
+========================================================================= */
+html[data-tema="sinematik"] #section-turut-mengundang .layer-6-content { padding: 30px 22px 50px; }
+html[data-tema="sinematik"] #section-turut-mengundang .turut-container-shadow { width: 100%; padding: 36px 20px; }
+html[data-tema="sinematik"] #section-turut-mengundang .turut-title {
+    font-family: var(--t-font-judul);
+    font-weight: 300;
+    color: var(--t-teks);
+    font-size: 34px;
+}
+html[data-tema="sinematik"] #section-turut-mengundang .story-divider { display: none; }
+html[data-tema="sinematik"] #section-turut-mengundang .turut-column h3 { color: var(--t-aksen); font-family: var(--t-font-teks); font-weight: 500; letter-spacing: 1.5px; }
+html[data-tema="sinematik"] #section-turut-mengundang .turut-nama-item { color: var(--t-teks); font-family: var(--t-font-teks); font-size: 12.5px; }
+
+/* =========================================================================
+   12. PENUTUP
+========================================================================= */
+html[data-tema="sinematik"] #section-footer { background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.75) 40%); }
+html[data-tema="sinematik"] #section-footer .layer-6-content { padding: 90px 22px 60px !important; }
+html[data-tema="sinematik"] #section-footer .teks-thanks {
+    font-family: var(--t-font-judul);
+    font-weight: 300;
+    color: var(--t-teks);
+    font-size: 44px;
+}
+html[data-tema="sinematik"] #section-footer .donahu-splash__divider img { filter: brightness(0) invert(1); opacity: .7; }
+html[data-tema="sinematik"] #section-footer .footer-mempelai-nama {
+    font-family: var(--t-font-display);
+    color: var(--t-aksen);
+    font-size: 34px;
+    text-transform: uppercase;
+}
+html[data-tema="sinematik"] #section-footer .teks-ungkapan,
+html[data-tema="sinematik"] #section-footer .salam-penutup { font-family: var(--t-font-teks); color: var(--t-teks-redup); }
+html[data-tema="sinematik"] #section-footer .donahu-copyright,
+html[data-tema="sinematik"] #section-footer .donahu-copyright a { font-family: var(--t-font-teks); color: var(--t-teks-redup); }
+
+/* =========================================================================
+   13. TOMBOL MUSIK
+========================================================================= */
+html[data-tema="sinematik"] #music-control {
+    left: auto;
+    right: 18px;
+    bottom: 70px;
+    width: 38px;
+    height: 38px;
+    background: #fff;
+    color: #222;
+    box-shadow: 0 4px 14px rgba(0,0,0,.4);
+}
+html[data-tema="sinematik"] #music-control.paused { background: rgba(255,255,255,.75); }
+html[data-tema="sinematik"] #music-control i { color: #222; font-size: 13px; }
+html[data-tema="sinematik"] body.ada-nav-bawah #music-control { bottom: 96px; }
+
+
+/* =========================================================================
+   VARIAN WARNA SINEMATIK
+   Pilih di data.js -> tampilan.varian   (preview: ?varian=terang)
+   "gelap"  (bawaan) : overlay hitam, teks putih, aksen emas  -> foto gelap / jas hitam
+   "terang"          : overlay putih tipis, teks marun, kartu kaca putih -> foto cerah, nuansa merah-putih
+   "hangat"          : overlay merah anggur tipis, teks putih, aksen blush -> foto cerah, tetap bernuansa sinematik
+========================================================================= */
+
+/* ---------- VARIAN TERANG ---------- */
+html[data-tema="sinematik"][data-varian="terang"] {
+    --t-aksen: #8E0F24;                        /* merah jas */
+    --t-aksen-tombol: #8E0F24;
+    --t-latar: #EEF0F2;
+    --t-overlay: rgba(244, 245, 247, 0.38);    /* putih tipis: foto tetap hidup, teks gelap terbaca */
+    --t-teks: #3A0A12;                         /* marun sangat gelap */
+    --t-teks-redup: rgba(58, 10, 18, 0.82);
+    --t-garis: rgba(142, 15, 36, 0.35);
+    --t-kaca: rgba(255, 255, 255, 0.74);
+    --t-blur: 10px;
+    --t-nav-latar: rgba(255, 255, 255, 0.88);
+    --t-nav-teks: #8E0F24;
+    --t-nav-aktif: rgba(142, 15, 36, 0.10);
+}
+/* teks di luar kartu diberi pendar putih agar tetap terbaca di atas bagian foto yang gelap (jas) */
+html[data-tema="sinematik"][data-varian="terang"] #donahu-scroll-wrapper,
+html[data-tema="sinematik"][data-varian="terang"] .splash-content-wrapper {
+    text-shadow: 0 0 18px rgba(255,255,255,.85), 0 0 4px rgba(255,255,255,.6);
+}
+html[data-tema="sinematik"][data-varian="terang"] .btn-action-link,
+html[data-tema="sinematik"][data-varian="terang"] .btn-send-rsvp,
+html[data-tema="sinematik"][data-varian="terang"] .btn-kirim-gift,
+html[data-tema="sinematik"][data-varian="terang"] .btn-copy-data,
+html[data-tema="sinematik"][data-varian="terang"] .btn-buka-undangan { text-shadow: none; }
+
+/* sampul: memudar ke putih di bawah, wajah tetap jelas di atas */
+html[data-tema="sinematik"][data-varian="terang"] .splash-overlay-shading {
+    background: linear-gradient(to top, rgba(246,246,248,.92) 0%, rgba(246,246,248,.55) 30%, rgba(246,246,248,0) 60%);
+}
+html[data-tema="sinematik"][data-varian="terang"] .splash-inisial { color: var(--t-aksen); text-shadow: 0 0 30px rgba(255,255,255,.7); }
+html[data-tema="sinematik"][data-varian="terang"] .text-kepada,
+html[data-tema="sinematik"][data-varian="terang"] .text-nama-tamu { color: var(--t-teks); }
+html[data-tema="sinematik"][data-varian="terang"] .btn-buka-undangan {
+    background: var(--t-aksen); color: #fff; border-color: var(--t-aksen);
+}
+html[data-tema="sinematik"][data-varian="terang"] .btn-buka-undangan:hover { background: #6F0A1B; }
+
+html[data-tema="sinematik"][data-varian="terang"] #section-hero::before {
+    background: linear-gradient(to top, rgba(246,246,248,0) 0%, rgba(246,246,248,.82) 12%, rgba(246,246,248,.5) 34%, rgba(246,246,248,0) 60%);
+}
+html[data-tema="sinematik"][data-varian="terang"] .hero-personal { color: var(--t-teks); }
+
+/* tombol dan kolom isian di atas kartu putih */
+html[data-tema="sinematik"][data-varian="terang"] #acara-list .btn-action-link,
+html[data-tema="sinematik"][data-varian="terang"] #section-live .btn-live { background: var(--t-aksen); color: #fff; }
+html[data-tema="sinematik"][data-varian="terang"] .btn-insta { border-color: var(--t-garis); color: var(--t-teks); }
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .form-group-input input,
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .form-group-input select,
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .form-group-input textarea { border: 1px solid rgba(142,15,36,.25); }
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .form-group-input input:read-only { background-color: #f3eef0 !important; border: 1px solid rgba(142,15,36,.25) !important; }
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .btn-send-rsvp { background: var(--t-aksen); }
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .btn-send-rsvp:hover { background: #6F0A1B; }
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .rsvp-form-box {
+    background: var(--t-kaca); border: 1px solid rgba(255,255,255,.9); border-radius: 6px; padding: 22px;
+    backdrop-filter: blur(var(--t-blur)); -webkit-backdrop-filter: blur(var(--t-blur));
+}
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .comment-card-item { border-bottom-color: rgba(142,15,36,.15); }
+html[data-tema="sinematik"][data-varian="terang"] #section-gift .card-rekening-item { color: var(--t-teks); }
+html[data-tema="sinematik"][data-varian="terang"] .story-simple-date::before { background: var(--t-aksen); }
+html[data-tema="sinematik"][data-varian="terang"] #section-acara .event-tittle::after,
+html[data-tema="sinematik"][data-varian="terang"] #section-galeri .title-section-global::before,
+html[data-tema="sinematik"][data-varian="terang"] #section-mempelai .wedding-separator::before,
+html[data-tema="sinematik"][data-varian="terang"] #section-mempelai .wedding-separator::after { background: var(--t-aksen); }
+
+/* kartu bergaris putih bersih, bukan garis gelap */
+html[data-tema="sinematik"][data-varian="terang"] #section-mempelai .mempelai-container-shadow,
+html[data-tema="sinematik"][data-varian="terang"] #story-timeline-wrapper,
+html[data-tema="sinematik"][data-varian="terang"] #section-turut-mengundang .turut-container-shadow,
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .comments-display-wrapper,
+html[data-tema="sinematik"][data-varian="terang"] #acara-list .event-card-info,
+html[data-tema="sinematik"][data-varian="terang"] #section-gift .card-rekening-item {
+    border-color: rgba(255,255,255,.95);
+    box-shadow: 0 10px 30px rgba(74, 3, 12, 0.10);
+}
+html[data-tema="sinematik"][data-varian="terang"] #section-mempelai .avatar-wrapper img,
+html[data-tema="sinematik"][data-varian="terang"] .story-simple-img { box-shadow: 0 10px 26px rgba(74,3,12,.22); }
+
+html[data-tema="sinematik"][data-varian="terang"] #section-live .layer-6-content {
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.55) 25%, rgba(255,255,255,.55) 75%, rgba(255,255,255,0) 100%);
+}
+html[data-tema="sinematik"][data-varian="terang"] #section-footer {
+    background: linear-gradient(to bottom, rgba(246,246,248,0), rgba(246,246,248,.85) 45%);
+}
+html[data-tema="sinematik"][data-varian="terang"] #section-footer .donahu-splash__divider img { filter: none; opacity: .8; }
+html[data-tema="sinematik"][data-varian="terang"] #music-control { background: var(--t-aksen); }
+html[data-tema="sinematik"][data-varian="terang"] #music-control i { color: #fff; }
+html[data-tema="sinematik"][data-varian="terang"] .envelope-animation { background: #f6f6f8; }
+
+/* ---------- VARIAN HANGAT ---------- */
+html[data-tema="sinematik"][data-varian="hangat"] {
+    --t-aksen: #F6DCCB;                        /* blush lembut */
+    --t-aksen-tombol: #8E0F24;
+    --t-latar: #2a0a10;
+    --t-overlay: rgba(64, 6, 18, 0.34);        /* merah anggur tipis, bukan hitam */
+    --t-kaca: rgba(70, 10, 22, 0.38);
+    --t-garis: rgba(255, 235, 228, 0.6);
+    --t-blur: 8px;
+}
+html[data-tema="sinematik"][data-varian="hangat"] #donahu-scroll-wrapper,
+html[data-tema="sinematik"][data-varian="hangat"] .splash-content-wrapper { text-shadow: 0 1px 14px rgba(40,0,8,.55); }
+html[data-tema="sinematik"][data-varian="hangat"] .splash-overlay-shading {
+    background: linear-gradient(to top, rgba(64,6,18,.78) 0%, rgba(64,6,18,.35) 40%, rgba(64,6,18,.05) 75%);
+}
+html[data-tema="sinematik"][data-varian="hangat"] #section-hero::before {
+    background: linear-gradient(to top, rgba(64,6,18,0) 0%, rgba(64,6,18,.55) 14%, rgba(64,6,18,.3) 36%, rgba(64,6,18,0) 62%);
+}
+html[data-tema="sinematik"][data-varian="hangat"] #section-rsvp .btn-send-rsvp { background: var(--t-aksen-tombol); }
+html[data-tema="sinematik"][data-varian="hangat"] #section-footer { background: linear-gradient(to bottom, rgba(40,4,12,0), rgba(40,4,12,.6) 45%); }
+
+/* terang: pita putih lembut di belakang teks yang tidak berada di dalam kartu */
+html[data-tema="sinematik"][data-varian="terang"] #section-quote .countdown-box-wrapper,
+html[data-tema="sinematik"][data-varian="terang"] #section-quote .quote-card-box,
+html[data-tema="sinematik"][data-varian="terang"] #section-gift .layer-6-content > .title-section-global,
+html[data-tema="sinematik"][data-varian="terang"] #section-gift .gift-caption {
+    position: relative;
+}
+html[data-tema="sinematik"][data-varian="terang"] #section-quote .layer-6-content,
+html[data-tema="sinematik"][data-varian="terang"] #section-gift .layer-6-content,
+html[data-tema="sinematik"][data-varian="terang"] #section-rsvp .layer-6-content > .title-section-global {
+    background: linear-gradient(to bottom, rgba(248,248,250,0) 0%, rgba(248,248,250,.6) 18%, rgba(248,248,250,.6) 82%, rgba(248,248,250,0) 100%);
+}
+
+/* terang: Bodoni pada ukuran besar memakai garis rambut sangat tipis -> kaki miring N/A hilang di atas foto.
+   Solusi: pakai "ukuran optik" kecil (opsz 6) dari font yang sama + sedikit lebih tebal
+   -> garis tipis jadi kokoh, karakter Bodoni tetap. */
+html[data-tema="sinematik"][data-varian="terang"] .splash-inisial {
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" 30;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 24px rgba(255,255,255,.9), 0 0 6px rgba(255,255,255,.8);
+}
+html[data-tema="sinematik"][data-varian="terang"] #section-hero h1,
+html[data-tema="sinematik"][data-varian="terang"] #section-footer .footer-mempelai-nama {
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" 11;
+    font-weight: 500;
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Nio & Ani</title>
+
+    <meta property="og:type"         content="article">
+    <meta property="og:title"        content="The Wedding of Nio & Ani">
+    <meta property="og:description"  content="Hello! Kamu Di Undang.. Klik tautan ini untuk melihat detail acara.">
+    <meta property="og:image"        content="https://donahu.com/Nio-Ani/img/herro_img/sambutan.webp">
+    <meta property="og:url"          content="https://donahu.com/Nio-Ani/">
+
+    <link rel="preload" as="image" href="img/ornamen/ornamen-daun-bulat.png">
+    <link rel="preload" as="image" href="img/ornamen/texturekanan.png">
+    <link rel="preload" as="image" href="img/ornamen/ornamen-top-left-hero.png">
+    <link rel="preload" as="image" href="img/ornamen/texturekiriatas.png">
+    <link rel="preload" as="image" href="img/pria.webp">
+    <link rel="preload" as="image" href="img/wanita.webp">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/layout.css?v=300720261400">
+    <link rel="stylesheet" href="css/theme.css?v=300720261400">
+    <link rel="stylesheet" href="css/animations.css?v=131020261330">
+
+    <!-- DATA + PEMUAT TEMA -->
+    <script src="js/data.js?v=121020262200"></script>
+    <script src="js/theme-loader.js?v=131020261330"></script>
+
+    <link rel="prefetch" href="main.html">
+    <link rel="prefetch" href="img/herro_img/sambutan.webp"> 
+    <link rel="prefetch" href="musik/musik.mp3">
+    <link rel="prefetch" href="js/layer-engine.js">
+
+    <link rel="preload" href="main.html" as="fetch">
+</head>
+<body id="body-gateway-splash">
+
+    <div class="splash-gateway-container">
+        <div class="envelope-animation" id="envelope-anim">
+            <div class="envelope-flap"></div> <div class="envelope-body"></div>  
+        </div>
+        <div class="layer-1-bg splash-bg-image"></div>
+        
+        <div class="layer-2-texture"></div>
+        
+        <div class="layer-3-image"></div>
+        
+        <div class="layer-4-overlay splash-overlay-shading"></div>
+        
+        <div class="layer-5-frame"></div>
+
+        <div class="splash-content-wrapper">
+            <div id="splash-inisial" class="splash-inisial komponen-tema" aria-hidden="true"></div>
+            <p class="splash-label-atas">THE WEDDING OF</p>
+            <h1 id="splash-nama-mempelai" class="splash-title-mempelai">... & ...</h1>
+            <div class="splash-box-tamu">
+                <p class="text-kepada">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                <h2 id="splash-penerima-undangan" class="text-nama-tamu">Tamu Undangan</h2>
+            </div>
+            <!-- <p class="splash-label-bawah">*Mohon maaf apabila ada kesalahan penulisan nama/gelar</p> -->
+            <a href="main.html" id="btn-gateway-buka" class="btn-buka-undangan">
+                <i class="fa-solid fa-envelope-open-text fading-icon"></i> 
+                  Buka Undangan
+            </a>
+            
+        </div>
+        
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. Validasi Keberadaan Database (data.js)
+            if (typeof configUndangan !== "undefined") {
+                
+                // --- A. SETTING NAMA MEMPELAI ---
+                const pria = configUndangan.sectionSplash?.namaPriaSingkat || "Pria";
+                const wanita = configUndangan.sectionSplash?.namaWanitaSingkat || "Wanita";
+                const elNama = document.getElementById("splash-nama-mempelai");
+                if (elNama) elNama.innerText = `${pria} & ${wanita}`;
+                const elInisial = document.getElementById("splash-inisial");
+                if (elInisial) elInisial.innerHTML = `<span>${pria.charAt(0)}</span><span>${wanita.charAt(0)}</span>`;
+
+                // --- B. KONTROL BACKGROUND (LAYER 1 & LAYER 3) ---
+                const bgContainer = document.querySelector(".splash-bg-image");
+                const globalCfg = configUndangan.pengaturanGlobal;
+                const splashLayer = configUndangan.sectionSplash?.layerControl;
+
+                if (bgContainer && globalCfg) {
+                    // Prioritas 1: Jika ada gambar KHUSUS untuk Splash Screen di Layer 3
+                    if (splashLayer && splashLayer.gambarStatis !== "") {
+                        bgContainer.style.backgroundImage = `url('${splashLayer.gambarStatis}')`;
+                        bgContainer.style.backgroundSize = "cover";
+                        bgContainer.style.backgroundPosition = "center";
+                    } 
+                    // Prioritas 2: Jika kosong, gunakan Pengaturan Global (Statis / Video / Slider)
+                    else {
+                        if (globalCfg.tipeBackground === "statis") {
+                            bgContainer.style.backgroundImage = `url('${globalCfg.dataStatis}')`;
+                            bgContainer.style.backgroundSize = "cover";
+                            bgContainer.style.backgroundPosition = "center";
+                        } 
+                        else if (globalCfg.tipeBackground === "video") {
+                            // Inject Video Element
+                            bgContainer.innerHTML = `
+                                <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;">
+                                    <source src="${globalCfg.dataVideo}" type="video/mp4">
+                                </video>
+                            `;
+                        } 
+                        else if (globalCfg.tipeBackground === "slider") {
+                            // Mesin Slider Sederhana untuk Splash Screen
+                            let slideIndex = 0;
+                            const slides = globalCfg.dataSlider;
+                            if (slides && slides.length > 0) {
+                                bgContainer.style.backgroundImage = `url('${slides[0]}')`;
+                                bgContainer.style.backgroundSize = "cover";
+                                bgContainer.style.backgroundPosition = "center";
+                                bgContainer.style.transition = "background-image 1.5s ease-in-out"; // Efek transisi smooth
+                                
+                                // Ganti gambar tiap 3.5 detik jika foto lebih dari 1
+                                if (slides.length > 1) {
+                                    setInterval(() => {
+                                        slideIndex = (slideIndex + 1) % slides.length;
+                                        bgContainer.style.backgroundImage = `url('${slides[slideIndex]}')`;
+                                    }, 3500); 
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                // --- C. KONTROL OVERLAY (Hanya kirim data ke CSS) ---
+                const overlay = document.querySelector(".splash-overlay-shading");
+                if (overlay && splashLayer) {
+                    // Mengirim nilai dari data.js ke CSS variable --overlay-alpha
+                    // Jika overlayAktif false, kirim 0 (transparan), jika true kirim nilaiOverlay
+                    const alpha = splashLayer.overlayAktif ? splashLayer.nilaiOverlay : 0;
+                    overlay.style.setProperty('--overlay-alpha', alpha);
+                }
+
+
+            }
+
+            // 2. Membaca Parameter Nama Tamu dari URL (?to=Nama)
+            const urlParams = new URLSearchParams(window.location.search);
+            const namaTamu = urlParams.get("to");
+            if (namaTamu) {
+                const elTamu = document.getElementById("splash-penerima-undangan");
+                if (elTamu) elTamu.innerText = namaTamu;
+            }
+
+            // 3. PENGHUNGUNG JITU: Pasang event klik ke tombol Buka Undangan
+            const tombolBuka = document.getElementById("btn-gateway-buka");
+            if (tombolBuka) {
+                // Oper parameter URL ke main.html agar nama tamu tidak hilang
+                if (window.location.search) {
+                    tombolBuka.href = "main.html" + window.location.search;
+                }
+
+                // SAAT DIKLIK: Tambahkan animasi, lalu pindah halaman
+                // SAAT DIKLIK: Tambahkan animasi, lalu pindah halaman
+                tombolBuka.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    if (tombolBuka.dataset.diklik) return;   // cegah klik ganda
+                    tombolBuka.dataset.diklik = "1";
+                    localStorage.setItem('mustAutoplay', 'true');
+
+                    // Jenis transisi diatur di data.js -> tampilan.transisiBuka (lihat theme-loader.js)
+                    const jenis = document.documentElement.getAttribute("data-transisi") || "amplop";
+
+                    if (jenis === "amplop") {
+                        // 1. Tampilkan animasi amplop
+                        const env = document.getElementById("envelope-anim");
+                        env.classList.add("active", "open"); // Amplop terbuka
+
+                        // 2. Berikan delay singkat agar animasi terlihat, lalu pindah
+                        setTimeout(() => {
+                            const container = document.querySelector(".splash-gateway-container");
+                            container.classList.add("splash-fade-out");
+                            setTimeout(() => { window.location.href = tombolBuka.href; }, 1000);
+                        }, 800);
+                        return;
+                    }
+
+                    // Transisi elegan (cahaya / tirai): halaman dalam akan melanjutkan efeknya
+                    try { sessionStorage.setItem("donahuTransisi", jenis); } catch (x) {}
+                    document.documentElement.classList.add("keluar-" + jenis);
+                    const lama = { cahaya: 1150, tirai: 1000 }[jenis] || 900;
+                    setTimeout(() => { window.location.href = tombolBuka.href; }, lama);
+                });
+
+                // Saat tamu kembali ke sampul dengan tombol "Back", bersihkan sisa transisi
+                window.addEventListener("pageshow", function () {
+                    document.documentElement.classList.remove("keluar-cahaya", "keluar-tirai");
+                    delete tombolBuka.dataset.diklik;
+                    const env = document.getElementById("envelope-anim");
+                    if (env) env.classList.remove("active", "open");
+                    const c = document.querySelector(".splash-gateway-container");
+                    if (c) c.classList.remove("splash-fade-out");
+                });
+
+            }
+
+        });
+
+    </script>
+    
+    <script src="js/atur-foto.js?v=131020261400"></script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+/* =========================================================================
+   1. RESET & PENGUNCI DASAR
+========================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden; /* Mencegah layar bisa digeser ke kiri/kanan (bug horizontal) */
+    font-family: sans-serif; /* Font cadangan */
+    background-color: var(--warna-utama); /* Warna dasar layar jika gambar telat loading */
+}
+
+/* =========================================================================
+   2. PINTU GERBANG (SPLASHSCREEN GATEWAY - Berdiri Sendiri)
+========================================================================= */
+.splash-gateway-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Mengunci total agar tidak bisa di-scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.splash-bg-image,
+.splash-overlay-shading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.splash-content-wrapper {
+    position: relative;
+    z-index: 2; /* Berada di atas bg dan overlay splashscreen */
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+/* =========================================================================
+   3. LAYER 1 GLOBAL (BACKGROUND INTERAKTIF)
+========================================================================= */
+#global-layer-1 {
+    position: fixed; /* Diam di tempat saat halaman discroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1; /* Lantai paling dasar dari keseluruhan website */
+}
+
+/* Class ini di-generate otomatis oleh layer-engine.js untuk mode Slider */
+.donahu-global-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; 
+    transition: opacity 1.5s ease-in-out; /* Efek transisi antar foto super mulus */
+}
+
+.donahu-global-slide.active-slide {
+    opacity: 1;
+}
+
+/* Class untuk mode Video */
+.donahu-global-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================================================================
+   4. CONTAINER UTAMA & SISTEM 6-LAYER PER SECTION
+========================================================================= */
+/* Wrapper ini menaungi semua section dan berada DI ATAS Layer 1 Global */
+#donahu-scroll-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.donahu-section-layer {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Tiap section dipaksa minimal setinggi layar HP tamu */
+    overflow: hidden;  /* Menjebak ornamen frame agar tidak keluar jalur */
+}
+
+/* Pengaturan Absolute untuk Layer 2 sampai 5 */
+.layer-2-texture,
+.layer-3-static,
+.layer-4-overlay,
+.layer-5-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.layer-2-texture {
+    z-index: 2;
+    pointer-events: none; /* Wajib! Agar tamu tetap bisa klik/scroll menembus tekstur */
+}
+
+.layer-3-static {
+    z-index: 3;
+    background-size: cover;
+    background-position: center;
+}
+
+.layer-4-overlay {
+    z-index: 4;
+}
+
+.layer-5-frame {
+    z-index: 5;
+    pointer-events: none; /* Wajib! Ornamen sudut tidak boleh menghalangi klik tombol */
+}
+
+/* Layer 6: Tahta Tertinggi (Tempat Konten Berada) */
+.layer-6-content {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px; /* Ruang napas agar konten tidak tertutup ornamen frame */
+}
+
+/* =========================================================================
+   5. TOMBOL MUSIK FLOATING
+   ========================================================================= */
+
+#music-control {
+    position: fixed;
+    bottom: 60px;
+    left: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--warna-utama); /* Sesuaikan dengan warna tema */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+#music-control img {
+    width: 25px;
+    height: 25px;
+}
+
+/* Redupkan warna saat musik dipause */
+#music-control.paused {
+    background-color: #888; 
+    opacity: 0.7;
+}
+
+/* Animasi Putar Piringan Hitam/Ikon */
+.spin-animation {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* =========================================================================
+   KUNCI POSISI SLIDE FOTO BERJALAN (INFINITE MARQUEE)
+========================================================================= */
+
+.marquee-container {
+    bottom: 0;          /* Kunci tepat di dasar/lantai bawah #opening */
+    left: 20px;            /* Rapatkan ke ujung kiri */
+    width: calc(100% - 40px);        /* Lebar penuh mentok dari kiri ke kanan */
+    overflow: hidden;   /* Potong foto yang meluber keluar layar HP */
+    z-index: 3;         /* WAJIB: Harus lebih tinggi dari #opening::before (z-index: 1) */
+    padding: 10px 0;    /* Jarak spasi atas-bawah barisan foto */
+    background: transparent;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-kiri 30s linear infinite; 
+    
+    /* [TAMBAHAN BARU]: Memaksa GPU (Kartu Grafis) untuk memproses animasi */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.marquee-track img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center 20%;
+    margin-right: 15px;
+    border-radius: 50%;
+    /* [TAMBAHAN BARU]: Memperhalus gambar yang di-resize oleh browser */
+    image-rendering: high-quality;
+    image-rendering: -webkit-optimize-contrast;
+    
+    /* Mencegah tepian gambar bergerigi saat bergerak */
+    transform: translate3d(0, 0, 0); 
+}
+
+/* Jalur mesin penggerak marquee */
+@keyframes scroll-kiri {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* =========================================================================
+   PERBAIKAN KEBOCORAN LAYAR (HORIZONTAL SCROLL FIX)
+   Letakkan kode ini di baris paling atas file CSS Anda
+========================================================================= */
+
+/* Mengunci sumbu horizontal pada akar dokumen */
+html, body {
+    overflow-x: hidden !important; /* Mencegah layar digeser ke kiri/kanan */
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mengunci sumbu horizontal pada pembungkus utama seluruh konten */
+#donahu-scroll-wrapper {
+    overflow-x: hidden !important; 
+    width: 100%;
+    position: relative;
+}
+
+/* =========================================================================
+   PENJELASAN:
+   Dengan menaruh overflow-x: hidden pada body dan wrapper, ornamen bunga 
+   yang menggunakan "overflow: visible" di tiap section tetap bisa menyeberang 
+   ke BAWAH/ATAS (membentuk jembatan antar segmen). 
+   
+   Namun, kelopak bunga yang menjorok keluar batas KANAN atau KIRI layar 
+   akan otomatis dipotong (hidden) secara global, sehingga masalah layar 
+   bocor ke samping 100% teratasi di semua jenis HP.
+   =========================================================================
+*/
+
+/* =========================================================================
+   SISTEM TEMA - KOMPONEN OPSIONAL (BARU)
+   Komponen bertanda .komponen-tema disembunyikan di tema klasik.
+   File css/themes/<tema>.css yang memutuskan mana yang dimunculkan.
+========================================================================= */
+.komponen-tema { display: none; }
+
+/* Teks opsional dari data.js: jika kosong, otomatis hilang tanpa sisa jarak */
+.mempelai-panggilan:empty,
+.mempelai-asal:empty,
+.live-teks:empty { display: none; }
+
+/* Judul dua gaya ("Wedding <span>Event</span>"): di tema klasik tampil biasa */
+.judul-script { font: inherit; color: inherit; }
+
+/* Wadah daftar acara: transparan untuk layout lama */
+.acara-list { display: contents; }
+
+/* Section ringkas (tidak dipaksa setinggi layar) */
+.donahu-section-layer.section-ringkas,
+.donahu-section-layer.section-ringkas .layer-6-content { min-height: auto; }
+
+/* Live streaming - gaya dasar (tema klasik) */
+#section-live .layer-6-content { text-align: center; padding: 50px 30px; background: var(--warna-utama); }
+#section-live .title-section-global { font-family: var(--font-marcellus); color: var(--warna-teks-terang); font-size: 24px; font-weight: lighter; margin-bottom: 12px; }
+#section-live .live-teks { font-family: var(--font-paragraf); color: var(--warna-teks-terang); font-size: 13px; line-height: 1.7; max-width: 420px; margin-bottom: 18px; }
+#section-live .btn-live { display: inline-flex; gap: 8px; align-items: center; border: 1px solid #fff; color: #fff; padding: 10px 24px; text-decoration: none; font-family: var(--font-paragraf); font-size: 13px; }
+
+/* Navigasi bawah - gaya dasar, warna mengikuti token tema bila ada */
+.nav-bawah {
+    position: fixed; left: 50%; bottom: 12px; transform: translateX(-50%);
+    z-index: 9990; display: flex; gap: 4px; padding: 6px 8px;
+    background: var(--t-nav-latar, rgba(255, 255, 255, 0.92));
+    border: 1px solid var(--t-garis, rgba(0, 0, 0, 0.08));
+    border-radius: 40px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    max-width: calc(100vw - 32px);
+}
+.nav-bawah[hidden] { display: none; }
+.nav-bawah a {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    min-width: 52px; padding: 6px 6px; border-radius: 30px; text-decoration: none;
+    color: var(--t-nav-teks, var(--warna-utama));
+    font-family: var(--font-paragraf, sans-serif); font-size: 9px; letter-spacing: .3px;
+}
+.nav-bawah a i { font-size: 15px; }
+.nav-bawah a.aktif { background: var(--t-nav-aktif, rgba(0, 0, 0, 0.06)); }
+body.ada-nav-bawah #music-control { bottom: 90px; }
+body.ada-nav-bawah #section-footer .layer-6-content { padding-bottom: 110px !important; }
+
+/* =========================================================================
+   RSVP - "Kirim ucapan sebagai" (nama keluarga di link / nama pribadi)
+   Warna mengikuti tema: --t-aksen (tema baru) atau --warna-utama (klasik)
+========================================================================= */
+#section-rsvp .rsvp-pilih-nama {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+#section-rsvp .rsvp-opsi {
+    position: relative;
+    display: block;
+    margin: 0 !important;
+    cursor: pointer;
+}
+/* radio asli disembunyikan (aturan input:read-only lama ikut mengenai radio, jadi dipakai !important) */
+#section-rsvp .rsvp-pilih-nama .rsvp-opsi input[type="radio"] {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    border: 0 !important;
+    pointer-events: none;
+}
+#section-rsvp .rsvp-opsi > span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 46px;
+    height: 100%;
+    padding: 9px 10px;
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background: #fff;
+    color: #555;
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-shadow: none;
+    transition: border-color .2s, background .2s, color .2s, box-shadow .2s;
+    word-break: break-word;
+}
+#section-rsvp .rsvp-opsi > span i { font-size: 14px; opacity: .75; flex: none; }
+#section-rsvp .rsvp-opsi input:checked + span {
+    border-color: var(--t-aksen, var(--warna-utama));
+    color: var(--t-aksen, var(--warna-utama));
+    background: color-mix(in srgb, var(--t-aksen, var(--warna-utama)) 7%, #fff);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--t-aksen, var(--warna-utama)) 15%, transparent);
+}
+#section-rsvp .rsvp-opsi input:checked + span i { opacity: 1; }
+#section-rsvp .rsvp-opsi input:focus-visible + span { outline: 2px solid var(--t-aksen, var(--warna-utama)); outline-offset: 2px; }
+
+#section-rsvp .rsvp-box-pribadi { margin-top: 10px; animation: rsvpMuncul .3s ease; }
+#section-rsvp .rsvp-box-pribadi[hidden] { display: none; }
+@keyframes rsvpMuncul { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+#section-rsvp .rsvp-pratinjau {
+    margin: 8px 0 0;
+    font-size: 11px;
+    color: #777;
+    text-shadow: none;
+}
+#section-rsvp .rsvp-prev-kartu {
+    display: block;
+    margin-top: 5px;
+    padding: 8px 10px;
+    border-left: 3px solid var(--t-aksen, var(--warna-utama));
+    background: rgba(0, 0, 0, 0.035);
+    border-radius: 4px;
+}
+#section-rsvp .rsvp-prev-kartu b { display: block; font-size: 13px; color: #333; }
+#section-rsvp .rsvp-prev-kartu small { display: block; font-size: 10.5px; opacity: .7; }

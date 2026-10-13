@@ -1,0 +1,1665 @@
+/* =========================================================================
+   1. VARIABEL DESAIN (Ubah warna & font template di sini)
+========================================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Carattere&family=Great+Vibes&family=Libre+Caslon+Display&family=Marcellus&family=Philosopher:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600;700&family=The+Nautigal:wght@400;700&display=swap');
+
+/* =========================================
+   2. DAFTARKAN FONT LOKAL (SHALMA)
+========================================= */
+@font-face {
+    font-family: "Shalma";
+    /* Sesuaikan nama file dan foldernya dengan yang Anda miliki */
+    src: url("../fonts/shalma.ttf") format("truetype"); 
+    font-display: swap;
+}
+@font-face {
+    font-family: "Adelia";
+    src: url('../fonts/adelia.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: "Edensor";
+    src: url("../fonts/Edensor-Free.otf") format("opentype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Newyork";
+    src: url("../fonts/NewYork-pwersonal-use.otf") format("opentype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Raflessia";
+    src: url("../fonts/Raflessia demo.ttf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Nimbus";
+    src: url("../fonts/NimbusSanL-Reg.otf") format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Helvetica";
+    src: url("../fonts/Helvetica.ttf") format("truetype");
+    font-display: swap;
+}
+/* =========================================
+   3. PENGATURAN VARIABEL ROOT
+========================================= */
+:root {
+    /* =========================================
+       1. WARNA UTAMA
+       ========================================= */
+    --warna-utama: #426796; /* Grey */
+    --warna-Gelap: #333333;
+    --warna-texture: white; /* white */
+    --warna-terang: #fff;
+
+    --warna-teks-terang: #ffffff;
+    --warna-teks-gelap: #333333;
+    
+    /* =========================================
+       2. DAFTAR KOLEKSI FONT (GOOGLE FONTS)
+       ========================================= */
+    /* Sans-serif (Teks biasa/modern) */
+    --font-poppins: 'Poppins', sans-serif;
+    --font-philosopher: 'Philosopher', sans-serif;
+
+    /* Font sistem (Trebuchet MS) */
+    --font-trebuchet: 'Trebuchet MS', sans-serif;
+    
+    /* Serif (Elegan, cocok untuk Judul/Nama) */
+    --font-playfair: 'Playfair Display', serif;
+    --font-bodoni: 'Bodoni Moda', serif;
+    --font-caslon: 'Libre Caslon Display', serif;
+    --font-marcellus: 'Marcellus', serif;
+    --font-Edensor: 'Edensor', serif;
+    --font-Newyork: 'Newyork', serif;
+    --font-Nimbus: 'Nimbus', serif;  
+    --font-Helvetica: 'Helvetica', serif;  
+
+    /* Cursive/Script (Latin/Tegak Bersambung) */
+    --font-great-vibes: 'Great Vibes', cursive;
+    --font-nautigal: 'The Nautigal', cursive;
+    --font-carattere: 'Carattere', cursive;
+    --font-Shalma: 'Shalma', cursive;
+    --font-Adelia: 'Adelia', cursive;
+    --font-Raflessia: 'Raflessia', cursive;
+
+    /* =========================================
+       3. PENERAPAN FONT (TINGGAL UBAH DI SINI)
+       ========================================= */
+    /* Contoh: Anda ingin ganti font latin dari Great Vibes ke Carattere */
+    /* Tinggal ubah isinya menjadi var(--font-carattere) */
+    
+    --font-judul: var(--font-playfair);
+    --font-latin: var(--font-Shalma); /* <-- Ubah variabel di dalam kurung ini */
+    --font-paragraf: var(--font-trebuchet);
+}
+
+/* =========================================================================
+   2. DESAIN SPLASHSCREEN (#body-gateway-splash)
+========================================================================= */
+/* --- KONFIGURASI 5 LAYER SISTEM --- */
+/* Pastikan body punya warna latar yang senada dengan main.html */
+body {
+    background-color: #ffffff; /* Sesuaikan dengan warna dasar main.html */
+}
+
+.envelope-animation {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff; /* Warna kertas */
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.envelope-animation.active { opacity: 1; pointer-events: auto; }
+
+/* Animasi membuka */
+.envelope-flap {
+    width: 300px; height: 150px;
+    background: var(--warna-utama);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: transform 0.6s ease;
+    transform-origin: top;
+}
+
+.envelope-animation.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+
+.splash-gateway-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--warna-utama); /* Pastikan ini sama dengan body */
+    z-index: 999;
+}
+
+/* Layer Dasar */
+.layer-1-bg { z-index: 1; position: absolute; top:0; left:0; width:100%; height:100%; }
+.layer-2-texture { z-index: 2; position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; }
+.layer-3-image { z-index: 3; position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; }
+/* Pastikan ini ada di theme.css */
+.layer-4-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none; /* Agar tidak menghalangi klik ke tombol */
+    
+    /* Ganti ke RGBA agar bisa diatur tebal/tipisnya */
+    /* Contoh: Hitam dengan transparansi 60% */
+    background-color: rgba(88, 121, 148, 0.966); 
+    transition: background-color 0.3s ease;
+}
+.layer-5-frame { z-index: 5; position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; }
+
+/* Konten Utama (Harus di atas Layer 5) */
+.splash-content-wrapper {
+    position: relative;
+    z-index: 6; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 20px;
+    margin-bottom: 150px;
+}
+
+/* Memastikan background splash tetap responsif */
+.splash-bg-image {
+    background-size: cover;
+    background-position: center;
+}
+
+/* KONFIGURASI LAYER 4: OVERLAY GRADIENT
+   Tujuan: Membuat efek shading dari bawah ke atas agar nama pengantin 
+   lebih menonjol dibanding background.
+*/
+.splash-overlay-shading {
+    /* 0% - 50% = #c5a880 (Warna solid, tidak transparan)
+       50% - 100% = Memudar ke transparan 
+    */
+    background: linear-gradient(
+        to top, 
+        var(--warna-utama) 0%, 
+        #c5a8805e 30%, 
+        transparent 100%
+    );
+    
+    transition: background 0.3s ease;
+    pointer-events: none;
+}
+
+.splash-label-atas, .splash-label-bawah, .text-kepada {
+    font-family: var(--font-paragraf);
+    color: var(--warna-teks-terang);
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.splash-title-mempelai {
+    font-family: var(--font-latin);
+    color: var(--warna-teks-terang);
+    font-size: 48px;
+    margin: 15px 0 30px 0;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+
+.text-nama-tamu {
+    font-family: var(--font-judul);
+    color: var(--warna-teks-terang);
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.btn-buka-undangan {
+    display: inline-block;
+    background-color: var(--warna-teks-terang);
+    color: #303030;
+    gap: 10px;
+    font-family: var(--font-paragraf);
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+/* Animasi untuk ikon amplop agar tidak kaku */
+.fading-icon {
+    font-size: 0.9em;
+    /* Animasi lembut agar ikon sedikit membesar/mengecil */
+    animation: pulseIcon 2s infinite ease-in-out;
+}
+
+@keyframes pulseIcon {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* =========================================================================
+   3. ISOLASI SECTION: HERO (#section-hero)
+========================================================================= */
+#section-hero {
+    position: relative;
+    z-index: 1 !important;
+    overflow: visible !important;
+}
+
+#section-hero .layer-4-overlay {
+    /* Overlay degradasi: Bawah hitam pekat, atas transparan */
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.2) 100%);
+}
+
+#section-hero .layer-6-content {
+    justify-content: flex-end; /* Taruh teks hero di bagian bawah layar */
+    text-align: center;
+    padding-top: 50px;
+}
+
+#section-hero .sub-title {
+    font-family: var(--font-paragraf);
+    color: var(--warna-teks-gelap);
+    font-size: 14px;
+    letter-spacing: 3px;
+    font-weight: 700; /* FITUR BARU: Membuat teks menjadi tebal */
+    text-transform: uppercase; /* BONUS: Memaksa huruf jadi KAPITAL semua */
+}
+
+#section-hero h1 {
+    font-family: var(--font-latin);
+    color: var(--warna-utama);
+    font-size: 55px;
+    font-weight: 300; /* FITUR BARU: Membuat teks menjadi tebal */
+    margin: 10px 0;
+    line-height: 1.2;
+}
+
+#section-hero .Tanggal-acara {
+    font-family: var(--font-paragraf);
+    color: var(--warna-teks-gelap);
+    font-size: 16px;
+    border-top: 1px solid var(--warna-utama);
+    border-bottom: 1px solid var(--warna-utama);
+    padding: 5px 20px;
+    display: inline-block;
+}
+
+#section-hero .layer-5-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Wajib, agar tidak memblokir tombol */
+    z-index: 7 !important;
+}
+
+/* CONTOH PADA HERO */
+.ornamen-top-right {
+    position: absolute;
+    top: -2%; /* Gunakan persen untuk jarak vertikal */
+    right: -10vw; /* Menarik ornamen keluar layar sebanding dengan lebar HP */
+    width: 45vw; /* Lebar bunga adalah 45% dari lebar layar HP */
+    max-width: 250px;
+    z-index: 7 !important;
+}
+
+.ornamen-top-left {
+    position: absolute;
+    top: -5%;
+    left: -1vw;
+    width: 60vw; 
+    max-width: 220px;
+    z-index: 7 !important;
+    transform: rotate(-20deg);
+}
+
+/* JEMBATAN ANTAR SECTION */
+#section-hero .ornamen-bottom-left.bridge-to-next {
+    position: absolute;
+    bottom: -15vw; /* Menggunakan vw agar turunnya proporsional */
+    left: -8vw;    
+    width: 50vw;   /* Lebih dinamis daripada px */
+    max-width: 280px; 
+    z-index: 5;
+}
+
+#section-hero .ornamen-bottom-right.bridge-to-next {
+    position: absolute;
+    bottom: -15vw; 
+    right: -10vw;  
+    width: 60vw;  
+    max-width: 320px; 
+    z-index: 10 !important;
+}
+
+.layer-5-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#section-hero .layer-6-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 6;
+}
+
+/* Pembungkus Foto dengan Bentuk Kubah (Arch) */
+.hero-photo-wrapper {
+    width: 75%; /* KUNCI: Lebar mengambil 75% layar, menyisakan margin 12.5% di kiri & kanan otomatis */
+    max-width: 320px; /* Batas maksimal agar di PC/Tablet tidak terlalu raksasa */
+    aspect-ratio: 3 / 4; /* KUNCI: Mengunci proporsi tinggi. Jika lebar mengecil, tinggi otomatis mengecil */
+    height: auto; /* Mematikan tinggi fixed */
+    margin-bottom: 5vh; /* Jarak bawah menyesuaikan tinggi layar (Viewport Height) */
+    
+    border-radius: 100px 100px 0px 0px;    
+    overflow: hidden;   
+    border: 5px solid var(--warna-utama); 
+    border-style: double;
+    z-index: 6;
+}
+
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center; 
+}
+
+#section-hero .spacer {
+    height: 50px;
+}
+
+.scroll-indicator {
+    display: block;
+    color: #000000;
+    z-index: 999;
+}
+
+/* =========================================================================
+   4. ISOLASI SECTION: QUOTE AYAT (#section-quote)
+========================================================================= */
+/* Kita berikan background kertas putih khusus section ini di layer statis */
+#section-quote {
+    z-index: 8;
+    overflow: visible !important;
+}
+
+
+#section-quote .layer-10-ornamen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Wajib, agar tidak memblokir tombol */
+    z-index: 10 !important;
+}
+
+#section-quote .ornamen-top-left.bridge-to-next {
+    position: absolute;
+    top: -70px; /* Mendorong bunga tumpah ke section bawah */
+    left: -10px;   /* Geser sedikit keluar batas kiri agar natural */
+    width: 200px;  /* Sedikit lebih besar agar jembatan terlihat jelas */
+    max-width: 55vw; 
+    z-index: 10 !important;
+    transform: rotate(47deg);
+}
+
+#section-quote .ornamen-top-right.bridge-to-next {
+    position: absolute;
+    top: -110px; /* Mendorong bunga tumpah ke section bawah */
+    right: -20px;   /* Geser sedikit keluar batas kiri agar natural */
+    width: 400px;  /* Sedikit lebih besar agar jembatan terlihat jelas */
+    max-width: 55vw; 
+    z-index: 10 !important;
+    transform: rotate(-25deg);
+}
+
+#section-quote .layer-10-ornamen img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Pastikan ini ada di CSS Anda */
+.layer-3-bg-putih {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* Warna putih cadangan */
+    z-index: 3; /* Tepat di bawah layer-3-static */
+}
+
+#section-quote .layer-3-static {
+    background-color: #ffffff;
+    /* Atau pakai gambar: background-image: url('../img/latar-putih.webp'); */
+}
+
+#section-quote .layer-6-content {
+    text-align: center;
+    justify-content: flex-start; /* KUNCI: Memaksa semua elemen di section quote untuk mulai dari atas, bukan dari tengah */
+    padding-top: 0;
+}
+
+#section-quote .quote-icon {
+    font-size: 30px;
+    color: var(--warna-utama);
+    margin-bottom: 15px;
+}
+
+#section-quote p {
+    font-family: var(--font-judul);
+    color: var(--warna-teks-gelap);
+    font-size: 15px;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+#section-quote span {
+    font-family: var(--font-paragraf);
+    color: #666666;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#section-quote .layer-6-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 6;
+}
+
+/* Pembungkus Foto dengan Bentuk Kubah (Arch) */
+.quote-photo-wrapper {
+    /* width: 300px;       Lebar foto, silakan sesuaikan */
+    height: 250px;      /* Tinggi foto, silakan sesuaikan */
+    margin-bottom: 20px; /* Jarak antara foto dan teks "THE WEDDING OF" */
+    
+    /* KUNCI LENGKUNGAN: Kiri-Atas Kanan-Atas Kanan-Bawah Kiri-Bawah
+    border-radius: 150px 150px 15px 15px;  */
+
+    /* KUNCI LENGKUNGAN: Kiri-Atas Kanan-Atas Kanan-Bawah Kiri-Bawah */
+    overflow: hidden;   /* Memotong gambar yang keluar dari lengkungan */
+    border: 1px solid var(--warna-utama); /* Opsional: Warna bingkai pinggiran foto */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.134); /* Opsional: Bayangan lembut */
+    z-index: 6;
+}
+
+/* Pengaturan Gambar agar proporsional */
+.quote-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Wajib: Agar foto mengisi penuh tanpa merusak rasio (tidak gepeng) */
+    object-position: center; /* Fokuskan potongan foto di area tengah */
+}
+
+.inisial-wrapper {
+    display: flex;
+    flex-direction: row; /* Berjejer ke samping */
+    align-items: center; /* Sejajar vertikal di tengah */
+    justify-content: center;
+    /* ATUR JARAK INISIAL DAN PEMBATAS/ICON */
+    gap: 10px; 
+    margin-top: 40px; /* Jarak dari teks ayat di atasnya */
+}
+
+/* Styling untuk huruf inisial */
+.inisial-wrapper h1 {
+    font-family: var(--font-Edensor); /* Gunakan font sambung/estetik andalan Anda */
+    font-size: 60px; /* Ukuran jumbo seperti di referensi */
+    color: var(--warna-utama); /* Warna emas/utama template Anda */
+    margin: 0;
+    line-height: 1;
+    font-weight: normal;
+}
+
+/* Styling untuk pemisah di tengah (ikon atau &) */
+.inisial-pemisah {
+    font-size: 20px;
+    color: var(--warna-utama);
+    opacity: 0.7; /* Sedikit lebih transparan agar fokus tetap ke huruf */
+    justify-content: center;
+    /* HILANGKAN JIKA MENGGUNAKAN ICON HATI */
+    height: 40px;
+}
+
+/* Styling Garis Tegak (Modern Style) */
+.inisial-garis {
+    font-size: 40px;          /* Sesuaikan tinggi garis */
+    font-weight: 200;         /* Garis tipis terlihat lebih modern */
+    color: var(--warna-utama);
+    display: inline-block;
+    /* Membuat garis sedikit lebih panjang ke atas-bawah */
+    transform: scaleY(6);   
+}
+
+#section-quote .countdown-box-wrapper {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+#section-quote .timer-block {
+    /* background: var(--warna-utama); */
+    color: var(--warna-teks-terang);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 60px;
+}
+
+#section-quote .timer-block span {
+    font-family: var(--font-trebuchet);
+    font-size: 24px;
+    /* font-weight: bold; */
+}
+
+#section-quote .timer-block p {
+    font-family: var(--font-paragraf);
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+/* =========================================================================
+   5. ISOLASI SECTION: MEMPELAI (#section-mempelai)
+========================================================================= */
+#section-mempelai {
+    z-index: 10 !important;
+    overflow: visible !important;
+}
+
+#section-mempelai .layer-4-overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* Background jadi agak gelap */
+}
+
+#section-mempelai .layer-10-ornamen {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Wajib, agar tidak memblokir tombol */
+    z-index: 10 !important;
+}
+
+#section-mempelai .layer-10-ornamen img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#section-mempelai .ornamen-top-right {
+    position: absolute;
+    top: -2%; /* Gunakan persen untuk jarak vertikal */
+    right: -10vw; /* Menarik ornamen keluar layar sebanding dengan lebar HP */
+    width: 45vw; /* Lebar bunga adalah 45% dari lebar layar HP */
+    max-width: 250px;
+    z-index: 7 !important;
+}
+
+#section-mempelai .ornamen-top-left {
+    position: absolute;
+    top: -3%;
+    left: -1vw;
+    width: 60vw; 
+    max-width: 220px;
+    z-index: 7 !important;
+    transform: rotate(-30deg);
+}
+
+#section-mempelai .layer-6-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 6;
+    padding: 40px 20px 100px 20px;
+}
+
+#section-mempelai .mempelai-container-shadow {
+    background-color: var(--warna-texture);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.048); 
+    
+    /* Gunakan lebar 90%, ini otomatis membagi sisa 5% untuk margin kiri dan 5% margin kanan */
+    width: 90%; 
+    max-width: 500px; 
+    margin: 0 auto; /* Memastikan box tepat di tengah */
+    
+    /* Gunakan vw/vh untuk padding agar bisa bernapas di layar kecil/besar */
+    padding: 5vh 5vw 8vh 5vw; 
+    border-radius: 50px;       
+}
+
+
+#section-mempelai .pembuka-salam {
+    font-family: var(--font-latin);
+    font-size: 35px;
+    color: var(--warna-utama);
+    margin-bottom: 10px;
+}
+
+#section-mempelai .pembuka-teks {
+    font-family: var(--font-paragraf);
+    font-size: 13px;
+    color: var(--warna-teks-gelap);
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+#section-mempelai .mempelai-card {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#section-mempelai .avatar-wrapper img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 150px;
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.555); /* Opsional: Bayangan lembut */
+    /* border: 3px solid var(--warna-utama);
+    padding: 5px; */
+}
+
+#section-mempelai h2 {
+    font-family: var(--font-Newyork);
+    font-size: 20px;
+    color: var(--warna-utama);
+    margin: 15px 0 5px 0;
+}
+
+#section-mempelai .ortu-info {
+    font-family: var(--font-paragraf);
+    font-size: 12px;
+    color: var(--warna-teks-gelap);
+}
+
+#section-mempelai .wedding-separator {
+    font-family: var(--font-latin);
+    font-size: 40px;
+    color: var(--warna-utama);
+    margin: 20px 0;
+}
+
+.btn-insta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Jarak antara ikon dan teks */
+    padding: 8px 16px;
+    background: var(--warna-utama);
+    border: 2px solid var(--warna-utama);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-insta:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-insta i {
+    font-size: 1.2rem;
+    color: #E1306C; /* Warna khas Instagram */
+}
+
+
+/* =========================================================================
+   6. ISOLASI SECTION: ACARA (#section-acara)
+========================================================================= */
+#section-acara {
+    position: relative;
+    z-index: 12;
+    overflow: visible !important;
+}
+
+#section-acara .layer-10-ornamen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Wajib, agar tidak memblokir tombol */
+    z-index: 10 !important;
+}
+
+#section-acara .ornamen-top-left.bridge-to-next {
+    position: absolute;
+    top: -70px; /* Mendorong bunga tumpah ke section bawah */
+    left: 30px;   /* Geser sedikit keluar batas kiri agar natural */
+    width: 300px;  /* Sedikit lebih besar agar jembatan terlihat jelas */
+    max-width: 55vw; 
+    z-index: 10 !important;
+    transform: rotate(47deg);
+}
+
+#section-acara .ornamen-top-right.bridge-to-next {
+    position: absolute;
+    top: -100px; /* Mendorong bunga tumpah ke section bawah */
+    right: -10px;   /* Geser sedikit keluar batas kiri agar natural */
+    width: 300px;  /* Sedikit lebih besar agar jembatan terlihat jelas */
+    max-width: 55vw; 
+    z-index: 10 !important;
+    transform: rotate(-40deg);
+}
+
+#section-acara .layer-10-ornamen img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#section-acara .layer-3-static, #section-acara .layer-4-overlay {
+    position: absolute; 
+    
+    /* Gunakan vw (viewport width) untuk jarak kiri kanan */
+    left: 6vw; 
+    right: 6vw;
+    
+    /* Gunakan vh (viewport height) untuk jarak atas bawah */
+    top: 5vh;
+    bottom: 5vh;
+    
+    width: auto;
+    height: auto;
+    
+    border-radius: 100px;
+    border: 3px solid var(--warna-utama); 
+    outline: 5px solid var(--warna-texture); 
+    outline-offset: -8px; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 3;
+}
+
+#section-acara .layer-4-overlay {
+    background-color: rgba(0, 0, 0, 0.425); /* Dibuat terang */
+
+}
+
+#section-acara .layer-6-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    padding: 40px 30px;
+    z-index: 6;
+}
+
+#section-acara .countdown-box-wrapper {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+#section-acara .timer-block {
+    background: var(--warna-utama);
+    color: var(--warna-teks-terang);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 60px;
+}
+
+#section-acara .timer-block span {
+    font-family: var(--font-judul);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#section-acara .timer-block p {
+    font-family: var(--font-paragraf);
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+#section-acara .event-card-info {
+    /* background: #ffffff;
+    border: 1px solid var(--warna-utama); */
+    padding: 20px;
+    /* border-radius: 15px; */
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    margin-bottom: 20px;
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.05); */
+}
+
+#section-acara .event-card-info h2 {
+    font-family: var(--font-Raflessia);
+    color: var(--warna-teks-terang);
+    font-weight: lighter;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+#section-acara .event-card-info h3 {
+    font-family: var(--font-marcellus);
+    color: var(--warna-teks-terang);
+    font-weight: lighter;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+#section-acara .event-time, #section-acara .event-place {
+    font-family: var(--font-Nimbus);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--warna-teks-terang);
+    margin-bottom: 5px;
+}
+
+.event-card-info i.fa-map-location-dot {
+    display: block;          /* Membuat ikon berdiri sendiri (di baris baru) */
+    font-size: 30px;         /* Mengatur ukuran ikon, silakan sesuaikan */
+    color: #ffffff;          /* Warna putih */
+    margin: 10px auto;       /* Memberi jarak atas-bawah dan menengahkan */
+}
+
+#section-acara .btn-action-link {
+    display: inline-block;
+    /* background: var(--warna-utama); */
+    border: 1px solid #fff;
+    color: var(--warna-teks-terang);
+    padding: 10px 25px;
+    /* border-radius: 20px; */
+    text-decoration: none;
+    font-family: var(--font-paragraf);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* =========================================================================
+   7. ISOLASI SECTION: KISAH CINTA (#section-love-story) - DESAIN SIMPLE
+========================================================================= */
+#section-love-story .layer-4-overlay {
+    background-color: rgba(255, 255, 255, 0.95); /* Latar belakang terang dan bersih */
+}
+
+#section-love-story .title-section-global {
+    font-family: var(--font-marcellus);
+    color: var(--warna-utama);
+    font-size: 30px;
+    font-weight: lighter;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* WADAH UTAMA (Susunan Vertikal) */
+#story-timeline-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px; /* Jarak antar cerita agar tidak sesak */
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* KOTAK CERITA */
+.story-simple-item {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* FOTO CERITA */
+.story-simple-img {
+    width: 100%;
+    max-width: 320px; /* Membatasi lebar foto agar tidak terlalu raksasa di layar lebar */
+    height: 220px;
+    object-fit: cover;
+    object-position: center 15%;
+    /* border-radius: 8px; Lengkungan sangat halus di sudut (modern simple) */
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.274); /* Bayangan super tipis agar foto tidak mati */
+}
+
+/* TANGGAL DAN BULAN */
+.story-simple-date {
+    font-family: var(--font-paragraf);
+    font-size: 13px;
+    color: var(--warna-utama);
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* JUDUL CERITA */
+.story-simple-title {
+    font-family: var(--font-Helvetica);
+    font-size: 20px;
+    color: var(--warna-teks-gelap);
+    margin-bottom: 12px;
+}
+
+/* Garis pemisah tipis */
+.story-divider {
+    width: 250px;          /* Panjang garis */
+    height: 1px;          /* Ketebalan garis (sangat tipis) */
+    background-color: #000000; /* Warna hitam */
+    /* margin: 10px auto 15px auto; Jarak atas: 10px, bawah: 15px */
+    margin-bottom: 10px;
+    /* opacity: 0.3;         Membuat warna hitam terlihat lebih halus/elegan */
+}
+
+/* DESKRIPSI CERITA */
+.story-simple-desc {
+    font-family: var(--font-Helvetica);
+    font-size: 13px;
+    color: #555555;
+    line-height: 1.7; /* Line height dilebarkan agar teks mudah dibaca */
+    max-width: 90%; /* Memberikan margin di kiri-kanan teks agar lebih estetik */
+}
+
+/* =========================================================================
+   8. SECTION GALERI FOTO - MOSAIC GRID LAYOUT
+========================================================================= */
+#section-galeri .title-section-global {
+    font-family: var(--font-marcellus);
+    color: var(--warna-utama);
+    font-size: 30px;
+    font-weight: lighter;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#section-galeri .subtitle-galeri {
+    font-family: var(--font-Helvetica);
+    font-size: 13px;
+    color: #555555;
+    line-height: 1.7; /* Line height dilebarkan agar teks mudah dibaca */
+    max-width: 90%; /* Memberikan margin di kiri-kanan teks agar lebih estetik */
+    margin-bottom: 20px;
+}
+
+.gallery-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Default 2 Kolom untuk HP */
+    grid-auto-rows: 140px; /* Tinggi baris dasar */
+    gap: 12px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    /* border-radius: 12px; */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Efek interaktif saat foto disentuh */
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* PENGATURAN GRID ACAK (MOSAIK ELEGAN) Berdasarkan data properti */
+.gallery-item.landscape {
+    grid-column: span 2; /* Melebar penuh mengambil 2 kolom */
+    grid-row: span 1;
+}
+
+/* Membuat variasi tinggi acak pada item portrait agar memanjakan mata */
+.gallery-item:nth-child(1n+2) {
+    grid-row: span 2; /* Menjadi lebih tinggi ke bawah */
+}
+.gallery-item:nth-child(2n+1):not(.landscape) {
+    grid-row: span 2;
+}
+
+/* =========================================================================
+   MODAL LIGHTBOX FULLSCREEN STYLE
+========================================================================= */
+.donahu-lightbox-modal {
+    display: none; /* Default tersembunyi */
+    position: fixed;
+    z-index: 99999 !important; /* Menembus seluruh layer manapun */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95); /* Hitam pekat mewah */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-content-wrapper {
+    max-width: 85%;
+    max-height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content-wrapper img {
+    max-width: 100%;
+    max-height: 100vh;
+    object-fit: contain;
+    border-radius: 4px;
+    animation: zoomInLightbox 0.3s ease;
+}
+
+/* Tombol Keluar (X) */
+.lightbox-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 100001;
+    transition: 0.2s;
+}
+.lightbox-close-btn:hover {
+    color: var(--warna-utama);
+}
+
+/* Tombol Navigasi Kiri & Kanan */
+.lightbox-nav-btn {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 16px 12px;
+    cursor: pointer;
+    z-index: 100000;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+.lightbox-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--warna-utama);
+}
+.prev-btn { left: 15px; }
+.next-btn { right: 15px; }
+
+@keyframes zoomInLightbox {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* =========================================================================
+   9. ISOLASI SECTION: TANDA KASIH / DOMPET (#section-gift)
+========================================================================= */
+#section-gift.donahu-section-layer {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow: hidden;
+}
+
+#section-gift .layer-4-overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#section-gift .layer-6-content {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    /* Mengubah justify-content agar konten dimulai dari atas */
+    justify-content: flex-start; 
+    align-items: center;
+    padding: 40px 20px;
+}
+
+#section-gift .title-section-global {
+    font-family: var(--font-marcellus);
+    color: var(--warna-utama);
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+#section-gift .gift-caption {
+    font-family: var(--font-Helvetica);
+    color: var(--warna-teks-gelap);
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+#section-gift .bank-cards-container {
+    width: 100%;
+    max-width: 350px;
+}
+
+#section-gift .card-rekening-item {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+    border: 1px solid rgba(197, 168, 128, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    color: #fff;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#section-gift .bank-name {
+    font-family: var(--font-judul);
+    font-size: 18px;
+    color: var(--warna-utama);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#section-gift .bank-number {
+    font-family: monospace;
+    font-size: 18px;
+    margin: 15px 0 5px 0;
+    letter-spacing: 2px;
+}
+
+#section-gift .bank-holder {
+    font-family: var(--font-paragraf);
+    font-size: 12px;
+    color: #aaa;
+}
+
+#section-gift .btn-copy-data {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    background: var(--warna-utama);
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: var(--font-paragraf);
+    cursor: pointer;
+}
+
+#section-gift .kado-physical-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed var(--warna-utama);
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 15px;
+    text-align: center;
+    position: relative;
+}
+
+#section-gift .kado-physical-box h4 {
+    font-family: var(--font-judul);
+    color: var(--warna-utama);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#section-gift .kado-physical-box p {
+    font-family: var(--font-paragraf);
+    color: #5b5b5b;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+#section-gift .kado-physical-box .btn-copy-data {
+    position: static;          /* Mematikan sifat absolute agar tidak menimpa teks */
+    display: inline-block;     /* Membuatnya menjadi block-node interaktif */
+    margin-top: 12px;          /* Memberi ruang jarak aman di bawah teks alamat */
+    padding: 8px 16px;         /* Memperluas area tombol sedikit agar lebih proporsional */
+}
+
+/* Pastikan tombol berada di atas konten collapse */
+.btn-kirim-gift {
+    display: block;
+    margin: 0 auto 20px auto; /* Margin bawah 20px memberikan jarak saat tertutup */
+    background: var(--warna-utama);
+    color: #fff;
+    padding: 12px 25px;
+    /* border-radius: 30px; */
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#konten-collapse-gift {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* Tambahkan properti ini untuk animasi */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+#konten-collapse-gift.show {
+    max-height: 1000px; /* Nilai harus lebih besar dari tinggi konten asli */
+    opacity: 1;
+}
+
+#gift-address-box {
+    margin-top: 15px;
+}
+
+/* =========================================================================
+   10. ISOLASI SECTION: TURUT MENGUNDANG (#section-turut-mengundang)
+========================================================================= */
+#section-turut-mengundang {
+    position: relative;
+    z-index: 3 !important;
+}
+
+#section-turut-mengundang .layer-4-overlay {
+    background-color: rgba(0, 0, 0, 0.7); /* Menyesuaikan kegelapan overlay mempelai */
+}
+
+#section-turut-mengundang .layer-6-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 6;
+    padding: 20px 20px 20px 20px;
+}
+
+/* Terapkan hal yang sama pada section turut mengundang */
+#section-turut-mengundang .turut-container-shadow {
+    background-color: var(--warna-texture);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.048); 
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 5vh 5vw 6vh 5vw;
+    border-radius: 50px;
+}
+
+#section-turut-mengundang .turut-title {
+    font-family: var(--font-Newyork);
+    font-size: 24px;
+    color: var(--warna-utama);
+    margin: 0 0 5px 0;
+}
+
+/* SISTEM DUA KOLOM RESPONSIF */
+#section-turut-mengundang .turut-flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Kunci agar bisa patah baris otomatis di HP */
+    justify-content: space-between;
+    width: 100%;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+#section-turut-mengundang .turut-column {
+    flex: 1 1 200px; /* Jika ruang layar di bawah 200px, kolom otomatis membelah ke bawah */
+    text-align: center;
+}
+
+#section-turut-mengundang .turut-column h3 {
+    font-family: var(--font-paragraf);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--warna-utama);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#section-turut-mengundang .turut-nama-item {
+    font-family: var(--font-paragraf);
+    font-size: 13px;
+    color: var(--warna-teks-gelap);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Garis pemisah tipis */
+#section-turut-mengundang .story-divider {
+    width: 100%;          /* Panjang garis */
+    height: 1px;          /* Ketebalan garis (sangat tipis) */
+    background-color: #000000; /* Warna hitam */
+    /* margin: 10px auto 15px auto; Jarak atas: 10px, bawah: 15px */
+    margin-bottom: 10px;
+    /* opacity: 0.3;         Membuat warna hitam terlihat lebih halus/elegan */
+}
+
+/* =========================================================================
+   11. ISOLASI SECTION: BUKU TAMU & RSVP (#section-rsvp)
+========================================================================= */
+#section-rsvp .layer-3-static {
+    background-color: #ffffff;
+}
+
+#section-rsvp .title-section-global {
+    font-family: var(--font-marcellus);
+    color: var(--warna-utama);
+    font-size: 24px;
+}
+
+#section-rsvp .rsvp-subtitle {
+    font-family: var(--font-Helvetica);
+    color: #666666;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+#section-rsvp .rsvp-form-box {
+    width: 100%;
+    max-width: 350px;
+    background: #fdfdfd;
+    border: 1px solid #eeeeee;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+#section-rsvp .form-group-input {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+#section-rsvp .form-group-input label {
+    display: block;
+    font-family: var(--font-Helvetica);
+    font-size: 11px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+#section-rsvp .form-group-input input,
+#section-rsvp .form-group-input select,
+#section-rsvp .form-group-input textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--warna-utama);
+    border-radius: 6px;
+    font-family: var(--font-Helvetica);
+    font-size: 13px;
+    background-color: #fff;
+    color: #333;
+}
+
+#section-rsvp .btn-send-rsvp {
+    width: 100%;
+    background-color: var(--warna-utama);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: var(--font-Helvetica);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#section-rsvp .btn-send-rsvp:hover {
+    background-color: var(--warna-utama);
+}
+
+#section-rsvp .comments-display-wrapper {
+    width: 100%;
+    max-width: 350px;
+    margin-top: 30px;
+    text-align: left;
+}
+
+#section-rsvp .comments-display-wrapper h4 {
+    font-family: var(--font-judul);
+    color: var(--warna-teks-gelap);
+    font-size: 14px;
+    border-bottom: 2px solid var(--warna-utama);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+#section-rsvp .comments-scroller-box {
+    width: 100%;
+    max-height: 500px; /* Batasi tinggi box ucapan agar halaman tidak molor */
+    overflow-y: auto; /* Aktifkan scroll internal jika ucapan penuh */
+    padding-right: 5px;
+}
+
+#section-rsvp .comment-card-item {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--warna-utama);
+}
+
+#section-rsvp .comment-user-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+#section-rsvp .comment-name {
+    font-family: var(--font-Helvetica);
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+#section-rsvp .comment-badge {
+    font-family: var(--font-Helvetica);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+#section-rsvp .badge-hadir { background: #e2f6ea; color: #15803d; }
+#section-rsvp .badge-tidak { background: #fef2f2; color: #b91c1c; }
+#section-rsvp .badge-ragu { background: #fef9c3; color: #a16207; }
+
+#section-rsvp .comment-text {
+    font-family: var(--font-Helvetica);
+    font-size: 12px;
+    color: #555555;
+    line-height: 1.4;
+}
+
+/* 2. Gaya untuk input yang terkunci (Prioritas Tinggi - Menang melawan kode di atas) */
+#section-rsvp .form-group-input input:read-only {
+    background-color: #e9ecef !important; /* Abu-abu muda */
+    border: 1px solid var(--warna-utama) !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 1; /* Penting untuk browser mobile */
+}
+
+/* =========================================================================
+   12. ISOLASI SECTION: FOOTER PENUTUP (#section-footer)
+========================================================================= */
+#section-footer {
+    position: relative;
+    width: 100%;
+    background-color: #111111;
+}
+
+/* #section-footer .layer-4-overlay {
+    background: linear-gradient(to top, #000000 30%, rgba(0,0,0,0.6) 100%);
+} */
+
+#section-footer .teks-ungkapan {
+    font-family: var(--font-Helvetica);
+    color: #dddddd;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.7;
+    max-width: 320px;
+    margin-bottom: 20px;
+}
+
+#section-footer .salam-penutup {
+    font-family: var(--font-judul);
+    color: var(--warna-utama);
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+#section-footer .teks-thanks {
+    font-family: var(--font-marcellus);
+    color: var(--warna-teks-terang);
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+#section-footer .donahu-splash__divider img {
+    width: 100%;
+    max-width: 280px;
+    opacity: 0.8;
+}
+
+#section-footer .spacer {
+    height: 200px;
+}
+
+#section-footer .footer-mempelai-nama {
+    font-family: var(--font-latin);
+    color: var(--warna-teks-terang);
+    font-size: 40px;
+    margin-bottom: 60px;
+}
+
+#section-footer .donahu-copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    padding-top: 15px;
+    
+    /* Tambahan agar isi di dalamnya (logo & teks) jadi ke tengah */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Menengahkan secara horizontal */
+    justify-content: center; /* Menengahkan secara vertikal */
+    text-align: center; /* Memastikan teks di bawah logo juga ke tengah */
+}
+
+#section-footer .donahu-copyright img {
+    display: block; /* Menghapus spasi bawaan img */
+    width: 100px;
+    height: auto;
+    padding-bottom: 10px; /* Memberi jarak antara logo dan teks di bawahnya */
+    
+
+}
+
+#section-footer .donahu-copyright p { 
+    font-family: var(--font-Helvetica);
+    color: #666666;
+    font-size: 11px;
+}
+
+#section-footer .donahu-copyright a {
+    font-family: var(--font-Helvetica);
+    color: var(--warna-teks-terang);
+    font-size: 11px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+#section-footer .layer-6-content {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+#footer-logo-link {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+#footer-logo-link:hover {
+    transform: scale(1.05); /* Logo sedikit membesar saat diarahkan mouse */
+}
+
+#section-footer .layer-4-overlay {
+    /* 0% - 50% = #c5a880 (Warna solid, tidak transparan)
+       50% - 100% = Memudar ke transparan 
+    */
+    background: linear-gradient(
+        to top, 
+        #c5a880f2 0%, 
+        #c5a8805e 30%, 
+        transparent 100%
+    );
+    
+    transition: background 0.3s ease;
+    pointer-events: none;
+}

@@ -1,0 +1,6 @@
+# Tidak ikut diunggah ke GitHub
+_git-lama-albert/
+_backup-sebelum-tema/
+*.zip
+.vscode/
+node_modules/

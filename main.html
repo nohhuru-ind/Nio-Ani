@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Nio & Ani</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/layout.css?v=131020261410">
+    <link rel="stylesheet" href="css/theme.css?v=300720261415">
+    <link rel="stylesheet" href="css/animations.css?v=131020261330">
+
+    <!-- DATA + PEMUAT TEMA: wajib di <head> setelah CSS dasar agar CSS tema bisa menimpa -->
+    <script src="js/data.js?v=121020262200"></script>
+    <script src="js/theme-loader.js?v=131020261330"></script>
+</head>
+<body id="body-undangan-utama">
+
+    <div id="global-layer-1" class="layer-1-interactive fixed-bg"></div>
+
+    <div id="donahu-scroll-wrapper">
+
+
+        <!-- =========================================================================
+            SECTION 2. PEMBUKA/HERO
+        ========================================================================= -->
+        <section id="section-hero" class="donahu-section-layer anim-fade-in speed-fast" data-key="sectionHero">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+
+            <div class="layer-5-frame" style="overflow: hidden;">
+                <div class="ornamen-top-left">
+                    <img src="img/ornamen/ornamen-top-left-hero.png" alt="Bunga Atas">
+                </div>
+            </div>
+
+            <div class="layer-6-content">
+                <!-- KOMPONEN TEMA: hanya tampil jika tema mengaktifkannya -->
+                <div class="hero-personal komponen-tema">
+                    <span id="hero-label-personal">PERSONALIZED FOR</span>
+                    <span id="hero-nama-tamu">donahu.com</span>
+                </div>
+                <div class="hero-photo-wrapper">
+                    <img src="img/herro_img/sambutan.webp" alt="Foto Mempelai" class="hero-photo">
+                </div>
+                <p class="sub-title">THE WEDDING OF</p>
+                <h1 id="hero-nama-mempelai">— & —</h1>
+                <p class="Tanggal-acara" id="hero-tanggal">Loading...</p>
+                <div class="spacer"></div>
+                <div class="scroll-indicator anim-float-y speed-slow">
+                    <i class="fa-solid fa-chevron-down fading-arrow" style="font-weight: bold;"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+        
+        <!-- =========================================================================
+            SECTION 3. QUOTE
+        ========================================================================= -->
+        <section id="section-quote" class="donahu-section-layer" data-key="sectionQuote">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-bg-putih"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content">
+                <div class="quote-photo-wrapper anim-float-in-down delay-100 speed-slow on-scroll">
+                    <img src="img/quote_img/quote_img.webp" alt="Foto quote" class="quote-photo">
+                </div>
+                <div class="quote-card-box anim-zoom-in delay-200 speed-slow on-scroll ">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p id="text-quote-ayat">Loading teks ayat...</p>
+                    <span id="sumber-quote-ayat">...</span>
+                </div>
+                <div class="inisial-wrapper">
+                    <h1 id="inisial-pria" class="anim-float-in-left speed-slow on-scroll">A</h1>
+                        <div class="inisial-pemisah">
+                            <span class="inisial-garis">|</span>
+                        </div>
+                        <!-- <div class="inisial-pemisah">
+                            <i class="fa-solid fa-heart"></i> 
+                        </div>-->
+                    <h1 id="inisial-wanita" class="anim-float-in-right speed-slow on-scroll">M</h1> 
+                </div>
+
+                <div class="countdown-box-wrapper" id="countdown-container">
+                    <div class="timer-block"><span id="cd-hari">00</span><p>Hari</p></div>
+                    <div class="timer-block"><span id="cd-jam">00</span><p>Jam</p></div>
+                    <div class="timer-block"><span id="cd-menit">00</span><p>Menit</p></div>
+                    <div class="timer-block"><span id="cd-detik">00</span><p>Detik</p></div>
+                </div>
+
+                <div class="layer-10-ornamen anim-float-in-left delay-400 speed-very-slow on-scroll" style="overflow: visible;">
+                    <div class="ornamen-top-right bridge-to-next">
+                        <img src="img/ornamen/ornamen-daun-bulat.png" alt="Bunga atas kanan">
+                    </div>
+                </div>
+
+                <div class="marquee-container">
+                    <div class="marquee-track" id="quote-marquee-track"></div>
+                </div>
+
+            </div>
+
+
+        </section>
+
+        <!-- =========================================================================
+            SECTION 4. BRIDE & GROOM
+        ========================================================================= -->
+        <section id="section-mempelai" class="donahu-section-layer" data-key="sectionMempelai">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            
+            <div class="layer-10-ornamen" style="overflow: hidden;">
+                <div class="ornamen-top-left">
+                    <img src="img/ornamen/ornamen-top-left-hero.png" alt="Bunga Atas">
+                </div>
+            </div>
+            
+            <div class="layer-6-content">
+                <div class="mempelai-container-shadow">
+                    <p class="pembuka-salam">Bride & Groom</p>
+                    <p class="pembuka-teks anim-zoom-in delay-100 speed-slow on-scroll">Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/I untuk menghadiri acara pernikahan kami :</p>
+                    
+                    <div class="mempelai-card" id="box-pria">
+                        <div class="avatar-wrapper">
+                            <img class="anim-float-in-down delay-200 speed-slow on-scroll" id="foto-mempelai-pria" src="" alt="Mempelai Pria" loading="lazy">
+                        </div>
+                        <p class="mempelai-panggilan" id="panggilan-pria"></p>
+                        <h2 class="anim-zoom-in delay-300 speed-very-slow on-scroll" id="nama-mempelai-pria">...</h2>
+                        <p class="mempelai-asal" id="asal-pria"></p>
+                        <p class="ortu-info anim-fade-in delay-300 speed-slow on-scroll" id="ortu-mempelai-pria">Putra dari Bapak ... & Ibu ...</p>
+                        <a id="insta-pria" href="#" class="btn-insta">
+                            <i class="fab fa-instagram" style="color: white;"></i> 
+                            <span class="insta-text"></span>
+                        </a>
+                    </div>
+
+                    <div class="wedding-separator ortu-info anim-reveal-up delay-400 speed-slow on-scroll">&</div>
+
+                    <div class="mempelai-card" id="box-wanita">
+                        <div class="avatar-wrapper">
+                            <img class="anim-float-in-down delay-400 speed-very-slow on-scroll" id="foto-mempelai-wanita" src="" alt="Mempelai Wanita" loading="lazy">
+                        </div>
+                        <p class="mempelai-panggilan" id="panggilan-wanita"></p>
+                        <h2 class="anim-zoom-in delay-500 speed-very-slow on-scroll" id="nama-mempelai-wanita">...</h2>
+                        <p class="mempelai-asal" id="asal-wanita"></p>
+                        <p class="ortu-info anim-fade-in delay-600 speed-very-slow on-scroll" id="ortu-mempelai-wanita">Putri dari Bapak ... & Ibu ...</p>
+                        <a id="insta-wanita" href="#" class="btn-insta">
+                            <i class="fab fa-instagram" style="color: white;"></i> 
+                            <span class="insta-text"></span>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- =========================================================================
+            SECTION 5. EVENT
+        ========================================================================= -->
+        <section id="section-acara" class="donahu-section-layer" data-key="sectionAcara">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-bg-putih"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+
+            <div class="layer-6-content">
+                
+                <!-- <div class="countdown-box-wrapper" id="countdown-container">
+                    <div class="timer-block"><span id="cd-hari">00</span><p>Hari</p></div>
+                    <div class="timer-block"><span id="cd-jam">00</span><p>Jam</p></div>
+                    <div class="timer-block"><span id="cd-menit">00</span><p>Menit</p></div>
+                    <div class="timer-block"><span id="cd-detik">00</span><p>Detik</p></div>
+                </div>-->
+
+                <div class="event-card-info">
+                    <h2 class="event-tittle">Wedding <span class="judul-script">Event</span></h2>
+                </div>
+
+                <div id="acara-list" class="acara-list">
+                <div class="event-card-info" id="card-pinang">
+                    <h3><i class="fa-solid fa-ring"></i> Peminangan </h3>
+                    <p class="event-time anim-zoom-in delay-100 speed-slow on-scroll" id="waktu-pinang">Loading...</p>
+                    <i class="fa-solid fa-map-location-dot anim-float-in-up delay-200 speed-slow on-scroll"></i>
+                    <p class="event-place anim-zoom-in delay-200 speed-slow on-scroll" id="lokasi-pinang">Loading...</p>
+                    <a href="#" id="btn-maps-pinang" target="_blank" class="btn-action-link">
+                        Lihat Link
+                    </a>
+                </div>
+
+
+                <div class="event-card-info" id="card-akad">
+                    <h3><i class="fa-solid fa-dove"></i> Pemberkatan </h3>
+                    <p class="event-time anim-zoom-in delay-200 speed-slow on-scroll" id="waktu-akad">Loading...</p>
+                    <i class="fa-solid fa-map-location-dot anim-float-in-up delay-300 speed-slow on-scroll"></i>
+                    <p class="event-place anim-zoom-in delay-200 speed-slow on-scroll" id="lokasi-akad">Loading...</p>
+                    <a href="#" id="btn-maps-akad" target="_blank" class="btn-action-link">
+                        Lihat Link
+                    </a>
+                </div>
+
+
+                <div class="event-card-info" id="card-resepsi">
+                    <h3><i class="fa-solid fa-champagne-glasses"></i> Resepsi</h3>
+                    <p class="event-time anim-zoom-in delay-200 speed-slow on-scroll" id="waktu-resepsi">Loading...</p>
+                    <i class="fa-solid fa-map-location-dot anim-float-in-up delay-300 speed-slow on-scroll"></i>
+                    <p class="event-place anim-zoom-in delay-200 speed-slow on-scroll" id="lokasi-resepsi">Loading...</p>
+                    <a href="#" id="btn-maps-resepsi" target="_blank" class="btn-action-link">
+                        Lihat Link
+                    </a>
+                </div>
+                </div><!-- /acara-list -->
+
+
+            </div>
+
+            <div class="layer-10-ornamen anim-float-in-left delay-400 speed-very-slow on-scroll" style="overflow: visible;">
+                <div class="ornamen-top-right bridge-to-next">
+                    <img src="img/ornamen/ornamen-daun-bulat.png" alt="Bunga atas kanan">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =========================================================================
+            SECTION 5b. LIVE STREAMING (opsional, aktif via data.js -> sectionLiveStreaming)
+        ========================================================================= -->
+        <section id="section-live" class="donahu-section-layer section-ringkas" data-key="sectionLiveStreaming" data-opsional="true">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content">
+                <h2 class="title-section-global anim-zoom-in speed-slow on-scroll"><i class="fa-regular fa-circle-dot"></i> Live Streaming</h2>
+                <p class="live-teks anim-fade-in delay-200 speed-slow on-scroll" id="live-teks"></p>
+                <a href="#" id="live-link" target="_blank" rel="noopener" class="btn-action-link btn-live">
+                    <i id="live-ikon" class="fa-brands fa-instagram"></i> <span id="live-label">Instagram</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+            SECTION 6. LOVESTORY
+        ========================================================================= -->
+        <section id="section-love-story" class="donahu-section-layer" data-key="sectionLoveStory">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content">
+                <h2 class="title-section-global"><i class="fa-solid fa-heart-pulse"></i> Love <span class="judul-script">Story</span></h2>
+                
+                <div id="story-timeline-wrapper" class="timeline-container">
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================================================
+            SECTION 7. GALERY
+        ========================================================================= -->
+        <section id="section-galeri" class="donahu-section-layer" data-key="sectionGaleri">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-bg-putih"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content">
+                <h2 class="title-section-global">Wedding <span class="judul-script">Gallery</span></h2>
+                <p class="subtitle-galeri">Momen-momen indah yang kami abadikan</p>
+                
+                <div id="gallery-grid-wrapper" class="gallery-photo-grid anim-float-in-down delay-200 speed-slow on-scroll">
+                    </div>
+            </div>
+            <div id="gallery-lightbox-modal" class="donahu-lightbox-modal">
+                <span class="lightbox-close-btn">&times;</span>
+                <button class="lightbox-nav-btn prev-btn">&#10094;</button>
+                <div class="lightbox-content-wrapper">
+                    <img id="lightbox-main-img" src="" alt="Pratinjau Galeri">
+                </div>
+                <button class="lightbox-nav-btn next-btn">&#10095;</button>
+            </div>
+        </section>
+
+
+        <!-- =========================================================================
+            SECTION 8. GIFT
+        ========================================================================= -->
+        <section id="section-gift" class="donahu-section-layer" data-key="sectionGift">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content">
+                <h2 class="title-section-global  anim-zoom-in delay-200 speed-slow on-scroll"> Tanda Kasih</h2>
+                <p class="gift-caption anim-zoom-in delay-200 speed-slow on-scroll">Doa restu Anda merupakan karunia terindah, namun jika ingin memberikan tanda kasih:</p>
+                
+                <button id="btn-toggle-gift" class="btn-kirim-gift" onclick="toggleGift()">
+                    <i class="fa-solid fa-gift"></i>  Kirim Hadiah
+                </button>
+
+                <div id="konten-collapse-gift">
+                    <div id="gift-accounts-wrapper" class="bank-cards-container"></div>
+                    <div id="gift-address-box" class="kado-physical-box">
+                        <h4><i class="fa-solid fa-truck-ramp-box"></i> Kirim Kado Fisik:</h4>
+                        <p id="gift-text-alamat">Loading alamat...</p>
+                        <button onclick="salinTeksAlamat()" class="btn-copy-data"><i class="fa-regular fa-copy"></i> Salin Alamat</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+            SECTION 9. TURUT MENGUNDANG
+        ========================================================================= -->
+        <section id="section-turut-mengundang" class="donahu-section-layer" data-key="turutMengundang">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            
+            <div class="layer-6-content">
+                <div class="turut-container-shadow">
+                    <h2 class="turut-title anim-fade-in delay-100 speed-fast on-scroll">Turut Mengundang</h2>
+                    <div class="turut-flex-row">
+                        <div class="story-divider"></div>
+                        <div class="turut-column anim-fade-in delay-300 speed-slow on-scroll" id="turut-pria-wrapper">
+                            </div>
+                        
+                        <div class="turut-column anim-fade-in delay-400 speed-very-slow on-scroll" id="turut-wanita-wrapper">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+            SECTION 10. RSVP
+        ========================================================================= -->
+        <section id="section-rsvp" class="donahu-section-layer" data-key="wishes">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content">
+                <h2 class="title-section-global"><i class="fa-solid fa-envelope-open-text"></i> RSVP & Ucapan</h2>
+                <p class="rsvp-subtitle">Pastikan kehadiran Anda dan berikan pesan hangat</p>
+
+                <form id="donahu-form-buku-tamu" class="rsvp-form-box">
+                    
+                    <div class="form-group-input">
+                        <label>Tamu Undangan</label>
+                        <input type="text" id="rsvp-input-grup" required readonly style="background: rgba(255, 255, 255, 0.08); cursor: not-allowed; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    </div>
+                    
+                    <!-- KIRIM SEBAGAI: nama keluarga/kelompok di link, atau nama pribadi -->
+                    <div class="form-group-input" id="grup-nama-personal">
+                        <label>Kirim ucapan sebagai</label>
+                        <div class="rsvp-pilih-nama" role="radiogroup" aria-label="Kirim ucapan sebagai">
+                            <label class="rsvp-opsi">
+                                <input type="radio" name="rsvp-sebagai" value="grup" checked>
+                                <span><i class="fa-solid fa-people-group"></i> <span id="rsvp-opsi-grup">Tamu Undangan</span></span>
+                            </label>
+                            <label class="rsvp-opsi">
+                                <input type="radio" name="rsvp-sebagai" value="pribadi">
+                                <span><i class="fa-solid fa-user"></i> Nama saya sendiri</span>
+                            </label>
+                        </div>
+                        <div id="rsvp-box-pribadi" class="rsvp-box-pribadi" hidden>
+                            <input type="text" id="rsvp-input-nama-personal" maxlength="60" autocomplete="name" placeholder="Ketik nama Anda, contoh: Rina">
+                            <p class="rsvp-pratinjau">
+                                Ucapan Anda akan tampil sebagai:
+                                <span class="rsvp-prev-kartu"><b id="rsvp-prev-nama">Nama Anda</b><small id="rsvp-prev-dari">dari Tamu Undangan</small></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group-input">
+                        <label>Konfirmasi Kehadiran</label>
+                        <select id="rsvp-select-hadir" required>
+                            <option value="">— Pilih Kehadiran —</option>
+                            <option value="Hadir">Ya, Saya Akan Hadir</option>
+                            <option value="Tidak Hadir">Maaf, Saya Tidak Bisa Hadir</option>
+                            <option value="Ragu-Ragu">Masih Ragu-Ragu</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-input" id="grup-input-jumlah" style="display:none;">
+                        <label>Jumlah Tamu</label>
+                        <input type="number" id="rsvp-input-jumlah" min="1" max="10" value="1" placeholder="Berapa orang?">
+                    </div>
+
+                    <div class="form-group-input">
+                        <label>Pesan & Doa Restu</label>
+                        <textarea id="rsvp-textarea-pesan" rows="4" placeholder="Tuliskan doa restu terbaik Anda..." required></textarea>
+                    </div>
+
+                    <button type="submit" id="btn-submit-rsvp" class="btn-send-rsvp">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Ucapan
+                    </button>
+                </form>
+
+                <div class="comments-display-wrapper">
+                    <h4><i class="fa-solid fa-comments"></i> Doa Restu Sahabat (<span id="count-ucapan">0</span>)</h4>
+                    <div id="donahu-comments-list" class="comments-scroller-box">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================
+            SECTION 11. FOOTER
+        ========================================================================= -->
+        <footer id="section-footer" class="donahu-section-layerPenutup" data-key="footer">
+            <div class="layer-2-texture"></div>
+            <div class="layer-3-static"></div>
+            <div class="layer-4-overlay"></div>
+            <div class="layer-5-frame"></div>
+            <div class="layer-6-content" style="position: relative; z-index: 6; text-align: center; padding: 50px 20px;">
+                
+                <h2 id="footer-thanks" class="teks-thanks">Terima Kasih</h2>
+                <div class="donahu-splash__divider">
+                    <img src="img/divider1.webp" alt="Divider" class="reveal-float ani-delay-2">
+                </div>
+                <div class="spacer"></div>
+                <p id="footer-quote" class="teks-ungkapan">...</p>
+                <p id="footer-salam" class="salam-penutup">...</p>
+                
+                <div class="footer-mempelai-nama" id="footer-nama-kita">... & ...</div>
+                
+                <div class="donahu-copyright">
+                    <a id="footer-logo-link" href="https://donahu.com/" target="_blank" rel="noopener noreferrer">
+                        <img id="footer-logo" src="" alt="Logo" style="display:none; margin: 0 auto;">
+                    </a>
+                    <p>&copy; 2026 All Rights Reserved.</p>
+                    <a href="https://donahu.com/" id="footer-brand" target="_blank" rel="noopener noreferrer">Created by Donahu Invitation</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- music control -->
+    <audio id="bg-music" loop>
+        <source src="musik/musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-control" class="music-button">
+        <i id="music-icon" class="fa-solid fa-spinner"></i>
+    </div>
+
+    <!-- NAVIGASI BAWAH (opsional, aktif via data.js -> tampilan.navigasiBawah) -->
+    <nav id="nav-bawah" class="nav-bawah" hidden>
+        <a href="#section-hero"><i class="fa-solid fa-house"></i><span>Cover</span></a>
+        <a href="#section-mempelai"><i class="fa-solid fa-user-group"></i><span>Mempelai</span></a>
+        <a href="#section-acara"><i class="fa-regular fa-calendar"></i><span>Acara</span></a>
+        <a href="#section-galeri"><i class="fa-regular fa-images"></i><span>Galeri</span></a>
+        <a href="#section-rsvp"><i class="fa-regular fa-comment-dots"></i><span>Ucapan</span></a>
+    </nav>
+
+    <!-- <script href=""></script> -->
+    <script src="js/layer-engine.js?v=131020261400"></script>
+    <script src="js/script.js?v=131020261410"></script>
+    <script src="js/efek.js?v=131020261300"></script>
+    <script src="js/atur-foto.js?v=131020261400"></script>
+
+</body>
+</html>

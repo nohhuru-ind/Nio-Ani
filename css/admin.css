@@ -1,0 +1,396 @@
+/* ==========================================================
+   --- RESET & TEMA CREAM GOLD UNTUK DASHBOARD ADMIN --------
+   ========================================================== */
+
+/* 1. Body & Background Dasar (Cream Terang) */
+body.admin-body {
+    background-color: #fdfbf7 !important; /* Warna dasar cream */
+    color: #4a3b2c !important; /* Teks Cokelat Tua elegan */
+    margin: 0 !important;
+    padding: 15px !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* 2. Pembungkus utama dashboard */
+.admin-wrapper {
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    padding: 10px !important;
+    position: relative;
+    z-index: 5;
+}
+
+/* 3. Header Dashboard */
+.dashboard-header {
+    margin-bottom: 25px !important;
+    text-align: center !important;
+}
+
+/* 4. Sistem Grid Responsif */
+.dashboard-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    align-items: start !important;
+}
+
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* 5. Kartu Komponen (Nuansa Kaca Putih Susu / Frosted Glass) */
+.admin-card {
+    background: rgba(255, 255, 255, 0.9) !important; /* Putih Susu */
+    border: 1px solid rgba(197, 168, 128, 0.4) !important; /* Border Gold Transparan */
+    backdrop-filter: blur(12px) !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    box-shadow: 0 10px 30px rgba(197, 168, 128, 0.15) !important; /* Bayangan Gold Lembut */
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+.admin-title {
+    color: #c5a880 !important;
+    border-bottom: 2px solid rgba(197, 168, 128, 0.2);
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+.panel-full-w {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-top: 20px !important;
+}
+
+/* 6. Form Group & Komponen Input (Nuansa Putih Bersih border Gold) */
+.form-group {
+    margin-bottom: 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.form-group label {
+    display: block !important;
+    margin-bottom: 8px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #6d5b4b !important;
+}
+
+.input-custom, .textarea-custom {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    border: 1px solid #d1c0a8 !important; /* Garis tepi input cokelat muda */
+    color: #4a3b2c !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    transition: all 0.3s ease;
+}
+
+.input-custom:focus, .textarea-custom:focus {
+    outline: none !important;
+    border-color: #c5a880 !important;
+    box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.2) !important;
+}
+
+/* Tambahkan di file CSS Anda */
+.input-custom[readonly] {
+    background-color: #f0f0f0; /* Warna abu-abu muda */
+    cursor: not-allowed;       /* Ubah kursor jadi ikon dilarang */
+    color: #666;               /* Teks jadi lebih redup */
+}
+
+/* 7. Sistem Textarea Bergaris Nomor (Lined Textarea) */
+.textarea-container-lined {
+    display: flex !important;
+    background: #ffffff !important;
+    border: 1px solid #d1c0a8 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.line-numbers {
+    width: 40px !important;
+    background: #fdfbf7 !important; /* Background nomor baris cream */
+    padding: 12px 0 !important;
+    text-align: center !important;
+    color: #a89275 !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    user-select: none !important;
+    border-right: 1px solid rgba(197, 168, 128, 0.3) !important;
+}
+
+.textarea-container-lined textarea {
+    border: none !important;
+    background: transparent !important;
+    flex: 1 !important;
+    line-height: 1.5 !important;
+    padding: 12px !important;
+    outline: none !important;
+}
+
+/* 8. Tombol Pilihan Template & Aksi */
+.btn-group-template {
+    display: flex !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.btn-group-template .btn-copy {
+    flex: 1 !important;
+    padding: 10px !important;
+    background: #fdfbf7 !important;
+    color: #6d5b4b !important;
+    border: 1px solid #d1c0a8 !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+}
+
+.btn-group-template .btn-copy.aktif {
+    background: #c5a880 !important; /* Gold saat aktif */
+    color: #ffffff !important;
+    border-color: #c5a880 !important;
+    box-shadow: 0 4px 10px rgba(197, 168, 128, 0.3) !important;
+}
+
+/* Tombol Proses Daftar Tamu */
+.btn-send-custom {
+    background: linear-gradient(135deg, #c5a880, #b8956c) !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    border-color: #706b64;
+    border: 1px solid rgb(250, 217, 28);
+    padding: 14px !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+    box-shadow: 0 4px 15px rgba(197, 168, 128, 0.4) !important;
+}
+
+.btn-send-custom:active {
+    transform: translateY(2px) !important;
+}
+
+/* 9. Tabel Output Konten */
+.table-scroll-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    max-height: 450px !important;
+}
+
+.tabel-generator {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    box-sizing: border-box !important;
+}
+
+.tabel-generator th {
+    background-color: rgba(197, 168, 128, 0.1) !important; /* Header tabel nuansa gold pucat */
+    color: #6d5b4b !important;
+    font-weight: 600 !important;
+}
+
+.tabel-generator th, .tabel-generator td {
+    padding: 5px !important;
+    border-bottom: 1px solid rgba(197, 168, 128, 0.2) !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important; 
+    color: #4a3b2c !important;
+    text-align: left !important;
+}
+
+/* Styling Tombol Aksi */
+.aksi-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Tombol Copy Link */
+.btn-copy-admin {
+    background: transparent;
+    border: 1px solid #c5a880;
+    color: #c5a880;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-copy-admin:hover {
+    background: #c5a880;
+    color: #fff;
+}
+
+/* Tombol WhatsApp (Ikon) */
+.btn-share-wa {
+    background: #25D366; /* Hijau ikon WA */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    transition: transform 0.2s;
+}
+
+.btn-share-wa:hover {
+    transform: scale(1.05);
+    background: #128C7E;
+}
+
+.nama-tamu-bold {
+    font-weight: 600;
+    color: #4a3b2c;
+}
+
+/* Box Ucapan Rekap */
+.comments-list {
+    margin-top: 15px; 
+    max-height: 400px; 
+    overflow-y: auto; 
+    background-color: rgba(197, 168, 128, 0.05); /* Latar belakang emas sangat transparan */
+    border-radius: 8px;
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    padding: 10px;
+}
+
+.comment-item p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 4px;
+    color: #4a3b2c; /* Teks ucapan kini cokelat, bukan putih */
+    text-align: left;
+}
+
+/* ==========================================================
+   --- LATAR BELAKANG STATIS (WATERMARK EFFECT) -------------
+   ========================================================== */
+#slide-1 {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-image: url('../img/Splash1.webp') !important; 
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    z-index: 1 !important;
+    
+    /* Kalibrasi untuk tema cerah: Dibuat sangat pudar seperti tekstur kertas / watermark */
+    opacity: 0.15 !important; 
+    filter: blur(1px) sepia(30%) grayscale(20%) !important; 
+}
+
+/* =================================================================
+   --- ENGINE KALIBRASI: OTOMATISASI RECAP PDF & CETAK KERTAS -----
+   ================================================================= */
+/* Tetap dipertahankan karena sudah dikalibrasi untuk kertas putih */
+@media print {
+    html, body, .admin-container, table, tr, td, th {
+        background-color: #FFFFFF !important;
+        background-image: none !important;
+        color: #000000 !important;
+    }
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-top: 20px !important;
+    }
+    th {
+        background-color: #f2f2f2 !important;
+        color: #000000 !important;
+        border: 1px solid #dddddd !important;
+        padding: 8px !important;
+    }
+    td {
+        border: 1px solid #dddddd !important;
+        padding: 8px !important;
+    }
+    .btn-unduh-pdf, .admin-sidebar, .nav-links, #btn-back, footer, .btn-maps, button {
+        display: none !important;
+    }
+}
+
+/* ANTI-BLANK LIGHT PDF ENGINE (Sudah cocok dengan tema baru) */
+.force-light-pdf {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    padding: 25px !important;
+}
+
+.force-light-pdf h1, .force-light-pdf h2, .force-light-pdf h3, .force-light-pdf h4, 
+.force-light-pdf p, .force-light-pdf span, .force-light-pdf div, .force-light-pdf li,
+.force-light-pdf strong, .force-light-pdf small {
+    color: #000000 !important;
+    background-color: transparent !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.force-light-pdf .ucapan-item-card, .force-light-pdf .wishes-box {
+    background-color: #FDFDFD !important;
+    border-bottom: 1px solid #EAEAEA !important;
+    padding: 15px 0 !important;
+    margin-bottom: 10px !important;
+}
+
+.btn-unduh {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    background: #5cb85c;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 10px 25px;
+    border-radius: 10px;
+    border-color: #706b64;
+    border: 1px solid rgb(250, 217, 28);
+    margin-top: 15px;
+    cursor: pointer;
+    gap: 5px;
+}
