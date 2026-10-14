@@ -47,16 +47,17 @@ const configUndangan = {
             "img/Gallery/Foto13.webp@galeri": "50% 40%",
             "img/Gallery/Foto3.webp@galeri": "50% 100%",
             "img/Gallery/Foto4.webp@galeri": "50% 42%",
-            "img/Gallery/Foto5.webp@galeri": { posisi: "42% 34%", zoom: 1.63 },
+            "img/Gallery/Foto5.webp@galeri": { posisi: "42% 34%", zoom: 1.96 },
             "img/Gallery/Foto6.webp@berjalan": "50% 19%",
             "img/Gallery/Foto6.webp@galeri": "50% 24%",
             "img/Gallery/Foto7.webp@berjalan": "50% 14%",
             "img/Gallery/Foto8.webp@berjalan": "50% 24%",
-            "img/Gallery/Foto8.webp@galeri": "50% 30%",
+            "img/Gallery/Foto8.webp@galeri": "50% 25%",
             "img/Gallery/Foto9.webp@galeri": "50% 39%",
-            "img/lovestory2.webp@cerita": "50% 33%",
+            "img/lovestory2.webp@cerita": "50% 45%",
+            "img/lovestory3.webp@cerita": "50% 49%",
         },
-
+        
         navigasiBawah: false,      // true = tampilkan menu ikon di bawah layar (Mempelai, Acara, Galeri, Ucapan)
         teksPersonal: "UNDANGAN" // label di pojok sampul tema sinematik
     },
@@ -233,7 +234,7 @@ const configUndangan = {
             tanggal: "Kamis, 22 Oktober 2026",
             jam: "18:00 WITA - Selesai",
             lokasi: "Rumah Bapak Mateos Henukh",
-            alamat: "",
+            alamat: "(Tekeme, Desa Mbokak, RBD)",
             linkGoogleMaps: "",
 
         },
