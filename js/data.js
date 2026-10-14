@@ -394,7 +394,7 @@ const configUndangan = {
             "Kel. Besar Sanda",
             "Kel. Besar Manu",
             "Kel. Besar Foeh",
-            "Kel. Bapak Bapak Mikael Manu",
+            "Kel. Bapak Mikael Manu",
             "Kel. Bapak Marsel Betharandy Wicherd Henukh"
         ]
 
