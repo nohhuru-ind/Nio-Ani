@@ -382,7 +382,7 @@ const configUndangan = {
             "Kel. Besar Adoe",
             "Kel. Besar Olla",
             "Kel. Besar Feosoru",
-            "Kel. Besar Bapak  Bapak Jhoni A. Adu, S.T",
+            "Kel. Besar Bapak Jhoni A. Adu, S.T",
         ],
 
         wanita: [
